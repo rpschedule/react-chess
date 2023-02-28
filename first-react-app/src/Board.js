@@ -1,11 +1,9 @@
-import Square from "./Square";
+import Row from "./Row";
 
-function Board () {
+function Board ({rows, columns}) {
     return (
         <>
-            <h1>im a board</h1>
-            <p>pls love me</p>
-            <Square />
+            <Row columns="{columns}"/>
         </>
     );
 }
