@@ -1,4 +1,5 @@
 import Square from './Square.js';
+import "./Row.css";
 
 export default function Row ({columns}) {
     let list = [];
@@ -11,7 +12,7 @@ export default function Row ({columns}) {
         <Square key={num.toString()} />
     )
 
-    return ( <>
+    return ( <div className="Row">
         {row}
-    </> ) 
+    </div> ) 
 }

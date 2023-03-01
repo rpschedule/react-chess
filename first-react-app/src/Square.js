@@ -1,10 +1,9 @@
-function Square () {
+import "./Square"
+
+export default function Square () {
     return (
-        <>
-            <h2>Im a square</h2>
-            <p>you dont have to love me but i'd appriciate it if you did</p>
-        </>
+        <div className="Square">
+            <h1>Sup</h1>
+        </div>
     )
 }
-
-export default Square;

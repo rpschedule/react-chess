@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <h1>first react app</h1>
-      <Board />
+      <Board columns="8" rows="8"/>
     </>
   );
 }
