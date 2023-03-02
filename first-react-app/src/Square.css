@@ -1,8 +1,5 @@
 .Square {
-    width: 50px;
-    height: 50px;
-    background: black;
-    outline: white;
+    width: 1fr;
+    height: 1fr;
+    background: white;
 }
-
-/*sup*/

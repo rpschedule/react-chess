@@ -1,0 +1,4 @@
+.Board {
+    display: grid;
+    gap: var(--gap-size);
+}

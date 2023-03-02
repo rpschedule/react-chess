@@ -7,14 +7,16 @@ function Board ({rows, columns}) {
         rows_empty.push(i);
     }
 
-    const rows_final = rows_empty.map((num) =>
-        <Row columns={columns} key={num} />
-    )
+    const rows_final = rows_empty.map((num) => {
+        // alertnate rows starting with white
+        const startsWhite = num % 2 === 1
+        return <Row columns={columns} key={num} startsWhite={startsWhite}/>
+    })
 
     return (
-        <>
+        <div className="Board">
             {rows_final}
-        </>
+        </div>
     );
 }
 
