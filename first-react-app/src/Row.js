@@ -1,7 +1,7 @@
 import Square from './Square.js'
 import './Row.css';
 
-export default function Row ({columns, startsWhite}) {
+export default function Row ({columns, startsWhite, rowName}) {
     let list = [];
 
     // create empty list to map on
@@ -10,11 +10,14 @@ export default function Row ({columns, startsWhite}) {
     }
 
     const row = list.map( (num) => {
-        // alternate square colors
+        
+        let nameSquare = (num === 0);
+
         if ( (num % 2 === 0) === startsWhite) {
-            return <Square key={num.toString()} color="white"/>
+            return <Square key={num.toString()} color="white" row={rowName} displayName={nameSquare}/>
         }
-        return <Square key={num.toString()} color="black"/>
+
+        return <Square key={num.toString()} color="black" row={rowName} displayName={nameSquare}/>
     })
 
     return ( <div className="Row">

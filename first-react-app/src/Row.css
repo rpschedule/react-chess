@@ -1,6 +1,10 @@
 @import './Board.css';
+@import './index.css';
 
 .Row {
-    display: grid;
-    grid-auto-rows: auto;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: inherit;
+    width: calc(8 * var(--square-size));
+    height: var(--square-size);
 }

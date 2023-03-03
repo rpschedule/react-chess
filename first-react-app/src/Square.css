@@ -1,15 +1,16 @@
-@import './Row.js';
+/* @import './Row.js'; */
 
 .Square {
-    width: 20px;
-    height: 20px;
+    width: 1fr;
+    height: 1fr;
     background: grey;
+    color: black;
 }
 
 .white {
-    background: greenyellow;
+    background: hsl(98, 11%, 86%);
 }
   
-black {
+.black {
     background: green;
 }
