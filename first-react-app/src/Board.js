@@ -11,7 +11,7 @@ function Board () {
     const rows_final = rows_empty.map((num) => {
         // alertnate rows starting with white
         const startsWhite = num % 2 === 0;
-        return <Row columns={8} key={num} startsWhite={startsWhite} rowName={8 - num} isFinalRow={num === 8}/>
+        return <Row columns={8} key={num} startsWhite={startsWhite} rowName={8 - num} isFinalRow={num === 7}/>
     })
 
     return (

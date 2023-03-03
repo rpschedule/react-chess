@@ -1,14 +1,14 @@
 import "./Square.css"
 
-export default function Square ({color, row, displayName}) {
+export default function Square ({color, row, showRowName, column, showColumnName}) {
     const classes = `Square ${color}`;
-    // console.log( row, displayName )
-    const content = displayName ? row : '';
-    // console.log( content )
+    const content1 = showRowName ? row : '';
+    const content2 = showColumnName ? column : '';
 
     return (
         <div className={classes}>
-            {content}
+            <span className="rowName">{content1}</span>
+            <span className="rowColumn">{content2}</span>
         </div>
-    )
+    );
 }

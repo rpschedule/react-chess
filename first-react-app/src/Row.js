@@ -15,14 +15,14 @@ export default function Row ({columns, startsWhite, rowName, isFinalRow}) {
 
     const row = list.map( (num) => {
         
-        let isNameSquare = (num === 0);
+        let showRowName = (num === 0);
         // console.log(rowName)
 
         if ( (num % 2 === 0) === startsWhite) {
-            return <Square key={num.toString()} color="white" row={rowName} column={numToLetter(num)} displayName={isNameSquare}/>
+            return <Square key={num.toString()} color="white" row={rowName} column={numToLetter(num)} showRowName={showRowName} showColumnName={isFinalRow}/>
         }
 
-        return <Square key={num.toString()} color="black" row={rowName} column={numToLetter(num)} displayName={isNameSquare}/>
+        return <Square key={num.toString()} color="black" row={rowName} column={numToLetter(num)} showRowName={showRowName} showColumnName={isFinalRow}/>
     })
 
     return ( <div className="Row">
