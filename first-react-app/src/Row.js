@@ -1,7 +1,11 @@
 import Square from './Square.js'
 import './Row.css';
 
-export default function Row ({columns, startsWhite, rowName}) {
+function numToLetter (num) {
+    return String.fromCharCode(97 + num)
+}
+
+export default function Row ({columns, startsWhite, rowName, isFinalRow}) {
     let list = [];
 
     // create empty list to map on
@@ -11,13 +15,14 @@ export default function Row ({columns, startsWhite, rowName}) {
 
     const row = list.map( (num) => {
         
-        let nameSquare = (num === 0);
+        let isNameSquare = (num === 0);
+        // console.log(rowName)
 
         if ( (num % 2 === 0) === startsWhite) {
-            return <Square key={num.toString()} color="white" row={rowName} displayName={nameSquare}/>
+            return <Square key={num.toString()} color="white" row={rowName} column={numToLetter(num)} displayName={isNameSquare}/>
         }
 
-        return <Square key={num.toString()} color="black" row={rowName} displayName={nameSquare}/>
+        return <Square key={num.toString()} color="black" row={rowName} column={numToLetter(num)} displayName={isNameSquare}/>
     })
 
     return ( <div className="Row">
