@@ -1,4 +1,6 @@
-Row {
+@import './Board.css';
+
+.Row {
     display: grid;
     grid-auto-rows: auto;
 }

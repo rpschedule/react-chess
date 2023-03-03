@@ -1,3 +1,5 @@
+@import './Row.js';
+
 .Square {
     width: 20px;
     height: 20px;

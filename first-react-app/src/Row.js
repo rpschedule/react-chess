@@ -1,5 +1,5 @@
-import Square from './Square.js';
-import "./Row.css";
+import Square from './Square.js'
+import './Row.css';
 
 export default function Row ({columns, startsWhite}) {
     let list = [];
