@@ -1,8 +1,11 @@
-import "./Square"
+import "./Square.css"
 
-export default function Square () {
+export default function Square ({color}) {
+    const classes = `Square ${color}`;
+
     return (
-        <div className="Square">
+        <div className={classes}>
+            s
         </div>
     )
 }

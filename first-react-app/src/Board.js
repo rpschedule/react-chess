@@ -1,4 +1,5 @@
-import Row from "./Row";
+import Row from './Row.js';
+import './Board.css'
 
 function Board ({rows, columns}) {
     let rows_empty = [];

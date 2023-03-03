@@ -12,9 +12,9 @@ export default function Row ({columns, startsWhite}) {
     const row = list.map( (num) => {
         // alternate square colors
         if ( (num % 2 === 0) === startsWhite) {
-            return <Square key={num.toString()} className="white"/>
+            return <Square key={num.toString()} color="white"/>
         }
-        return <Square key={num.toString()} className="black"/>
+        return <Square key={num.toString()} color="black"/>
     })
 
     return ( <div className="Row">

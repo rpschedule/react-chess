@@ -1,5 +1,13 @@
 .Square {
-    width: 1fr;
-    height: 1fr;
-    background: white;
+    width: 20px;
+    height: 20px;
+    background: grey;
+}
+
+.white {
+    background: greenyellow;
+}
+  
+black {
+    background: green;
 }
