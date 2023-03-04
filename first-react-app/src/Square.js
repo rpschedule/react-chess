@@ -7,8 +7,8 @@ export default function Square ({color, row, showRowName, column, showColumnName
 
     return (
         <div className={classes}>
-            <span className="rowName">{content1}</span>
-            <span className="rowColumn">{content2}</span>
+            <div className="rowName">{content1}</div>
+            <div className="columnName">{content2}</div>
         </div>
     );
 }

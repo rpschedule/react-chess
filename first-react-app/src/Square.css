@@ -5,12 +5,30 @@
     height: 1fr;
     background: grey;
     color: black;
+    padding: 5px;
+    display: flex;
 }
 
 .white {
     background: hsl(98, 11%, 86%);
+    color: green;
 }
   
 .black {
     background: green;
+    color: hsl(98, 11%, 86%);
+}
+
+.rowName {
+    vertical-align: top;
+    text-align: right;
+    margin-left: auto;
+    order: 2;
+}
+
+.columnName {
+    text-align: right;
+    margin-right: auto;
+    order: 1;
+    align-self: flex-end;
 }

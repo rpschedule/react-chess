@@ -15,7 +15,7 @@ export default function Row ({columns, startsWhite, rowName, isFinalRow}) {
 
     const row = list.map( (num) => {
         
-        let showRowName = (num === 0);
+        let showRowName = (num === 7);
         // console.log(rowName)
 
         if ( (num % 2 === 0) === startsWhite) {
