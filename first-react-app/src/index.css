@@ -1,8 +1,7 @@
 :root {
-  --square-white: #f1ffd6;
-  --square-black: #259119;
-  --square-size: 60px;
-  --gap-size: 0px;
+  --square-white: #bbbbbb;
+  --square-black: #096e00;
+  --square-size: 100px;
 }
 
 body {

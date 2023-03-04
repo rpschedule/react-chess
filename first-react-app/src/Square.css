@@ -1,4 +1,4 @@
-/* @import './Row.js'; */
+@import './index.css';
 
 .Square {
     width: 1fr;
@@ -10,13 +10,13 @@
 }
 
 .white {
-    background: hsl(98, 11%, 86%);
-    color: green;
+    background: var(--square-white);
+    color: var(--square-black);
 }
   
 .black {
-    background: green;
-    color: hsl(98, 11%, 86%);
+    background: var(--square-black);
+    color: var(--square-white);
 }
 
 .rowName {
