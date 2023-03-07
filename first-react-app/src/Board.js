@@ -1,24 +1,33 @@
-import Row from './Row.js';
+import Square from "./Square.js";
 import './Board.css'
 
-function Board () {
-    let rows_empty = [];
-
-    for ( let i = 0; i < 8; i++ ) {
-        rows_empty.push(i);
+export default function Board () {
+    let squares = [];
+    for ( let i = 0; i < 64; i++ ) {
+        squares.push('');
     }
 
-    const rows_final = rows_empty.map((num) => {
-        // alertnate rows starting with white
-        const startsWhite = num % 2 === 0;
-        return <Row columns={8} key={num} startsWhite={startsWhite} rowName={8 - num} isFinalRow={num === 7}/>
+    return ( renderBoard(squares) );
+}
+
+function renderBoard (board) {
+    const boardRendered = board.map((piece, index) => {
+        // if it's an odd row, offset index by 1
+
+        const offset = Math.floor(index / 8) % 2;
+        console.log(offset)
+
+        let color;
+        if ( (index + offset) % 2 === 0 ) { color = 'White'; }
+        else { color = 'Black'; }
+
+        return <Square key={index} color={color} piece={piece}/>
     })
+    
 
     return (
         <div className="Board">
-            {rows_final}
+            {boardRendered}
         </div>
     );
 }
-
-export default Board;
