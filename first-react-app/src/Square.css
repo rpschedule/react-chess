@@ -6,8 +6,16 @@
 
 .White {
     background: var(--square-white);
+    color: var(--square-black);
 }
 
 .Black {
     background: var(--square-black);
+    color: var(--square-white);
+}
+
+.Piece {
+    width: inherit;
+    height: inherit;
+    outline: 2px red solid
 }

@@ -3,10 +3,7 @@ import './Board.css'
 import loadFen from "./utils/loadFen.js";
 
 export default function Board () {
-    let squares = [];
-    for ( let i = 0; i < 64; i++ ) {
-        squares.push('');
-    }
+    let squares = Array(100).fill('');
 
     squares = loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0');
 
