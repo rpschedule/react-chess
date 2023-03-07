@@ -5,9 +5,9 @@
 }
 
 .White {
-    background: white;
+    background: var(--square-white);
 }
 
 .Black {
-    background: green;
+    background: var(--square-black);
 }
