@@ -1,11 +1,14 @@
 import Square from "./Square.js";
 import './Board.css'
 import loadFen from "./utils/loadFen.js";
+import move from './utils/move.js'
 
 export default function Board () {
-    let squares = Array(100).fill('');
+    let squares = Array(64).fill('');
 
     squares = loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0');
+    squares = move(squares, 0, 34)
+    squares = move(squares, 34, 16)
 
     return ( renderBoard(squares) );
 }

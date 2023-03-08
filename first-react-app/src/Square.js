@@ -49,13 +49,11 @@ export default function Square({ color, piece }) {
             break;
     }
 
+    const content = (piece !== '') ? <img src={images[pieceIndex]} alt={piece} className="Piece" /> : '';
+
     return (
         <div className={`Square ${color}`}>
-            <img
-                src={images[pieceIndex]}
-                alt={piece}
-                className="Piece"
-            />
+            {content}
         </div>
     )
 }
