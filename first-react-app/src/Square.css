@@ -15,7 +15,8 @@
 }
 
 .Piece {
-    width: inherit;
-    height: inherit;
-    outline: 2px red solid
+    width: 100%;
+    height: 100%;
+    outline: 2px red solid;
+    z-index: 2;
 }
