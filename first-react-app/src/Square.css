@@ -1,7 +1,8 @@
 @import './index.css';
 
 .Square {
-    /* Nothing in here so far */
+    width: var(--square-size);
+    height: var(--square-size);
 }
 
 .White {
@@ -17,6 +18,4 @@
 .Piece {
     width: 100%;
     height: 100%;
-    outline: 2px red solid;
-    z-index: 2;
 }
