@@ -24,7 +24,7 @@ function renderBoard (board) {
         if ( (index + offset) % 2 === 0 ) { color = 'White'; }
         else { color = 'Black'; }
 
-        return <Square key={index} color={color} piece={piece}/>
+        return <Square key={index} color={color} piece={piece} onclick=""/>
     })
     
 
