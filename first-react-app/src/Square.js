@@ -5,7 +5,7 @@ function importAll(r) {
     return r.keys().map(r);
 }
 
-export default function Square({ color, piece }) {
+export default function Square({ color, piece, clicked }) {
     let pieceIndex;
 
     switch (piece) {
@@ -52,7 +52,7 @@ export default function Square({ color, piece }) {
     const content = (piece !== '') ? <img src={images[pieceIndex]} alt={piece} className="Piece" /> : '';
 
     return (
-        <div className={`Square ${color}`}>
+        <div className={`Square ${color}`} onClick={clicked}>
             {content}
         </div>
     )

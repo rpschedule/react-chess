@@ -1,14 +1,26 @@
 import Square from "./Square.js";
-import './Board.css'
+import './Board.css';
 import loadFen from "./utils/loadFen.js";
-import move from './utils/move.js'
+import move from './utils/move.js';
+import { useState } from 'react';
 
 export default function Board () {
     let squares = Array(64).fill('');
+    let [ prevMove ] = useState(0);
 
     squares = loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0');
     squares = move(squares, 0, 34)
     squares = move(squares, 34, 16)
+
+    function clicked (index) {
+        if ( prevMove ) {
+            console.log(1)
+        } else {
+            prevMove = index;
+        }
+
+        alert(prevMove)
+    }
 
     return ( renderBoard(squares) );
 }
@@ -24,7 +36,7 @@ function renderBoard (board) {
         if ( (index + offset) % 2 === 0 ) { color = 'White'; }
         else { color = 'Black'; }
 
-        return <Square key={index} color={color} piece={piece}/>
+        return <Square key={index} color={color} piece={piece} clicked={() => clicked}/>
     })
     
 
