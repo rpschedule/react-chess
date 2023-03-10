@@ -5,18 +5,16 @@ import move from './utils/move.js'
 import { useState } from 'react';
 
 export default function Board () {
-    const [prevMove, setPrevMove] = useState(-1) 
-    let squares = Array(64).fill('');
-    let [ prevMove ] = useState(0);
+    const [prevMove, setPrevMove] = useState(-1);
+    const [squares, setSquares] = useState(loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0'));
 
-    function handleClick (e) {
-        setPrevMove(e.target);
-        console.log(prevMove);
+    function handleClick (square) {
+        if ( prevMove === -1 ) setPrevMove(square);
+        else {
+            setSquares(move(squares, prevMove, square))
+            setPrevMove(-1);
+        }
     }
-
-    squares = loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0');
-    squares = move(squares, 0, 34)
-    squares = move(squares, 34, 16)
 
     return ( renderBoard(squares, handleClick) );
 }
@@ -31,7 +29,7 @@ function renderBoard (board, handleClick) {
         if ( (index + offset) % 2 === 0 ) { color = 'White'; }
         else { color = 'Black'; }
 
-        return <Square key={index} color={color} piece={piece} clickHandler={handleClick}/>
+        return <Square key={index} index={index} color={color} piece={piece} clickHandler={handleClick}/>
     })
     
 
