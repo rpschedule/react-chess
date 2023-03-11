@@ -1,0 +1,21 @@
+@import './index.css';
+
+.Square {
+    width: var(--square-size);
+    height: var(--square-size);
+}
+
+.White {
+    background: var(--square-white);
+    color: var(--square-black);
+}
+
+.Black {
+    background: var(--square-black);
+    color: var(--square-white);
+}
+
+.Piece {
+    width: 100%;
+    height: 100%;
+}
