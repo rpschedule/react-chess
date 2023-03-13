@@ -1,9 +1,0 @@
-@import './Board.css';
-@import './index.css';
-
-.Row {
-    display: inline-grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    width: calc(8 * var(--square-size));
-    height: var(--square-size);
-}

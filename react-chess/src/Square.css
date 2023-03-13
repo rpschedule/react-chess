@@ -1,34 +1,21 @@
 @import './index.css';
 
 .Square {
-    width: 1fr;
-    height: 1fr;
-    background: grey;
-    color: black;
-    padding: 5px;
-    display: flex;
+    width: var(--square-size);
+    height: var(--square-size);
 }
 
-.white {
+.White {
     background: var(--square-white);
     color: var(--square-black);
 }
-  
-.black {
+
+.Black {
     background: var(--square-black);
     color: var(--square-white);
 }
 
-.rowName {
-    vertical-align: top;
-    text-align: right;
-    margin-left: auto;
-    order: 2;
-}
-
-.columnName {
-    text-align: right;
-    margin-right: auto;
-    order: 1;
-    align-self: flex-end;
+.Piece {
+    width: 100%;
+    height: 100%;
 }
