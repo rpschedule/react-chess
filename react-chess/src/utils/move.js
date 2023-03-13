@@ -1,3 +1,5 @@
+import './isLegal.js'
+
 export default function move(board, origin, destination) {
     if ( origin === destination ) return board;
 
