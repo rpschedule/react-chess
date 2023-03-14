@@ -1,4 +1,4 @@
-import './isLegal.js'
+import isLegal from './isLegal.js'
 
 export default function move(board, origin, destination) {
     if ( origin === destination ) return board;
@@ -6,7 +6,7 @@ export default function move(board, origin, destination) {
     let out = board; // out = [r, n, b, . . . ]
 
     // prevents players from deleting pieces
-    if ( board[origin] !== '') { 
+    if ( board[origin] !== '' && isLegal(board, origin, destination)) { 
         board[destination] = board[origin]; 
         board[origin] = '';
     }
