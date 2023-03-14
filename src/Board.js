@@ -9,7 +9,7 @@ export default function Board () {
     const [squares, setSquares] = useState(loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0'));
 
     function handleClick (square) {
-        if (  prevMove === -1 && squares[square] === '' ) return alert(1);
+        if (  prevMove === -1 && squares[square] === '' ) return;
 
         if ( prevMove === -1) {
             setPrevMove(square);

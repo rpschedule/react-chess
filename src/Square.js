@@ -53,7 +53,7 @@ export default function Square({ color, piece, index, clickHandler }) {
 
     return (
         <div className={`Square ${color}`} onClick={() => clickHandler(index)}>
-            {content}
+            {index}{piece}
         </div>
     )
 }
