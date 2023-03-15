@@ -1,17 +1,13 @@
-import isUpperCase from "./isUpperCase";
-
 export default function isLegal (board, origin, destination) {
-    // filter out moves that capture your color's pieces
-    if ( isUpperCase(board[origin]) === isUpperCase(board[destination]) && board[destination] !== '') return false;
     
     let legalMoves = [];
-    if ( board[origin].toLowerCase() === 'r' || board[origin].toLowerCase() === 'q') legalMoves = legalMoves.concat(rook(board, origin));
-    if ( board[origin].toLowerCase() === 'b' || board[origin].toLowerCase() === 'q') legalMoves = legalMoves.concat(bishop(board, origin));
+    if ( board[origin].piece === 'r' || board[origin].piece === 'q') legalMoves = legalMoves.concat(rook(board, origin));
+    if ( board[origin].piece === 'b' || board[origin].piece === 'q') legalMoves = legalMoves.concat(bishop(board, origin));
 
     console.log(legalMoves)
 
     // remove this later, it's just to allow moves other than rooks, queens, and bishops
-    if (  !/r|q|b/.test(board[origin].toLowerCase()) ) return true;
+    if (  !/r|q|b/.test(board[origin].piece) ) return true;
 
     if ( legalMoves.includes(destination) ) return true;
     return false;
@@ -20,34 +16,36 @@ export default function isLegal (board, origin, destination) {
 function rook (board, origin) {
     let legalMoves = [];
     let hasTouchedPiece = false;
+
+    // Possible micro-optimization: initiate i as origin - 8 and cut out checking that i !== origin
     // loop upwards starting at origin until i < 0 or has touched a piece
     for ( let i = origin; i >= 0 && !hasTouchedPiece; i -= 8 ) {
-        if ( i !== origin && isUpperCase(board[origin]) !== isUpperCase(board[i]) ) legalMoves.push(i);
-        if ( i !== origin && board[i] !== '' ) hasTouchedPiece = true;
+        if ( i !== origin && board[origin].color !== board[i].color ) legalMoves.push(i);
+        if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
     hasTouchedPiece = false;
     
     //down
     for ( let i = origin; i <= 63 && !hasTouchedPiece; i += 8) {
-        if ( i !== origin && isUpperCase(board[origin]) !== isUpperCase(board[i]) ) legalMoves.push(i);
-        if ( i !== origin && board[i] !== '' ) hasTouchedPiece = true;
+        if ( i !== origin && board[origin].color !== board[i].color ) legalMoves.push(i);
+        if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
     hasTouchedPiece = false;
 
     // right
     for ( let i = origin; i <= origin - (origin%8) + 7 && !hasTouchedPiece; i++ ) {
-        if ( i !== origin && isUpperCase(board[origin]) !== isUpperCase(board[i]) ) legalMoves.push(i);
-        if ( i !== origin && board[i] !== '' ) hasTouchedPiece = true;
+        if ( i !== origin && board[origin].color !== board[i].color ) legalMoves.push(i);
+        if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
     hasTouchedPiece = false;
 
     // left
     for ( let i = origin; i >= origin - origin%8 && !hasTouchedPiece; i-- ) {
-        if ( i !== origin && isUpperCase(board[origin]) !== isUpperCase(board[i]) ) legalMoves.push(i);
-        if ( i !== origin && board[i] !== '' ) hasTouchedPiece = true;
+        if ( i !== origin && board[origin].color !== board[i].color ) legalMoves.push(i);
+        if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
     return legalMoves;
@@ -59,15 +57,16 @@ function bishop (board, origin) {
 
     // upper right
     for ( let i = origin; i > 0 && !hasTouchedPiece; i -= 7) {
-        if ( i !== origin && isUpperCase(board[origin]) !== isUpperCase(board[i]) ) legalMoves.push(i);
-        if ( i !== origin && board[i] !== '' ) hasTouchedPiece = true;
+        if ( i !== origin && board[origin].color !== board[i].color ) legalMoves.push(i);
+        if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
     hasTouchedPiece = false;
 
+    // lower right
     for ( let i = origin; i < 63 && !hasTouchedPiece; i += 9) {
-        if ( i !== origin && isUpperCase(board[origin]) !== isUpperCase(board[i]) ) legalMoves.push(i);
-        if ( i !== origin && board[i] !== '' ) hasTouchedPiece = true;
+        if ( i !== origin && board[origin].color !== board[i].color ) legalMoves.push(i);
+        if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
     console.log('legalMoves', legalMoves)

@@ -5,12 +5,12 @@
     height: var(--square-size);
 }
 
-.White {
+.white {
     background: var(--square-white);
     color: var(--square-black);
 }
 
-.Black {
+.black {
     background: var(--square-black);
     color: var(--square-white);
 }

@@ -3,12 +3,17 @@ import isLegal from './isLegal.js'
 export default function move(board, origin, destination) {
     if ( origin === destination ) return board;
 
-    let out = board; // out = [r, n, b, . . . ]
+    let out = board; // out = [{piece: r, ...}, {piece: k, ...}, . . . ]
 
     // prevents players from deleting pieces
-    if ( board[origin] !== '' && isLegal(board, origin, destination)) { 
-        board[destination] = board[origin]; 
-        board[origin] = '';
+    if ( board[origin].piece !== '' && isLegal(board, origin, destination)) { 
+        board[destination].piece = board[origin].piece;
+        board[destination].pieceColor = board[origin].pieceColor; 
+        board[origin] = {
+            piece: '',
+            pieceColor: '',
+            squareColor: board[origin].squareColor,
+        };
     }
     
     return out;
