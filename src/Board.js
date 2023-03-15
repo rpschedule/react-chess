@@ -6,12 +6,13 @@ import { useState } from 'react';
 
 /**
  * Creates a chess board
- * @returns {JSX} Board - Div with class "Board" containing 64 square elements
- * @author Grom#2016
+ * @returns {JSX} Board - Div with class "Board" containing 64 Square elements
  */
 export default function Board ({ fen }) {
     const [prevMove, setPrevMove] = useState(-1);
     const [board, setBoard] = useState( loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0') );
+
+    console.log(board)
 
     function handleClick (square) {
         // if is first click and square is empty, return
@@ -34,8 +35,10 @@ export default function Board ({ fen }) {
  */
 function renderBoard (board, handleClick) {
     const boardRendered = board.map((square, index) =>
-        <Square key={index} index={index} color={square.squareColor} piece={square.piece} clickHandler={handleClick}/>
+        <Square key={index} square={square} index={index} clickHandler={handleClick}/>
     );
+
+    console.log(boardRendered)
     
 
     return (

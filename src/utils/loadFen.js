@@ -17,7 +17,8 @@ export default function loadFen (fen) {
         return {
             piece: '',
             pieceColor: '',
-            squareColor: color
+            squareColor: color,
+            hasMoved: false,
         }
     })
     
@@ -38,8 +39,10 @@ export default function loadFen (fen) {
             offset += parseInt(char) - 1;
         } else {
             out[i+offset].piece = char.toLowerCase();
-            out[i+offset].pieceColor = isUpperCase(char) ? 'black' : 'white';
+            out[i+offset].pieceColor = isUpperCase(char) ? 'white' : 'black';
         }
+
+        console.log(out[i+offset])
 
         i++;
     }

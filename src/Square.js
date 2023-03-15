@@ -5,11 +5,11 @@ function importAll(r) {
     return r.keys().map(r);
 }
 
-export default function Square({ color, piece, index, clickHandler }) {
+export default function Square({ color, square, index, clickHandler }) {
     let pieceIndex;
 
     switch (piece) {
-        case 'b':
+        case 'b' && square.:
             pieceIndex = 0;
             break;
         case 'k':
@@ -53,7 +53,7 @@ export default function Square({ color, piece, index, clickHandler }) {
 
     return (
         <div className={`Square ${color}`} onClick={() => clickHandler(index)}>
-            {index}{piece}
+            {content}
         </div>
     )
 }
