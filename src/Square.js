@@ -8,51 +8,38 @@ function importAll(r) {
 export default function Square({ color, square, index, clickHandler }) {
     let pieceIndex;
 
-    switch (piece) {
-        case 'b' && square.:
-            pieceIndex = 0;
-            break;
-        case 'k':
-            pieceIndex = 1;
-            break;
-        case 'n':
-            pieceIndex = 2;
-            break;
-        case 'p':
-            pieceIndex = 3;
-            break;
-        case 'q':
-            pieceIndex = 4;
-            break;
-        case 'r':
-            pieceIndex = 5;
-            break;
-        case 'B':
-            pieceIndex = 6;
-            break;
-        case 'K':
-            pieceIndex = 7;
-            break;
-        case 'N':
-            pieceIndex = 8;
-            break;
-        case 'P':
-            pieceIndex = 9;
-            break;
-        case 'Q':
-            pieceIndex = 10;
-            break;
-        case 'R':
-            pieceIndex = 11;
-            break;
-        default:
-            break;
+
+    if (square.piece === 'b' && square.pieceColor === 'black') {
+        pieceIndex = 0;
+    } else if (square.piece === 'k' && square.pieceColor === 'black') {
+        pieceIndex = 1;
+    } else if (square.piece === 'n' && square.pieceColor === 'black') {
+        pieceIndex = 2;
+    } else if (square.piece === 'p' && square.pieceColor === 'black') {
+        pieceIndex = 3;
+    } else if (square.piece === 'q' && square.pieceColor === 'black') {
+        pieceIndex = 4;
+    } else if (square.piece === 'r' && square.pieceColor === 'black') {
+        pieceIndex = 5;
+    } else if (square.piece === 'b' && square.pieceColor === 'white') {
+        pieceIndex = 6;
+    } else if (square.piece === 'k' && square.pieceColor === 'white') {
+        pieceIndex = 7;
+    } else if (square.piece === 'n' && square.pieceColor === 'white') {
+        pieceIndex = 8;
+    } else if (square.piece === 'p' && square.pieceColor === 'white') {
+        pieceIndex = 9;
+    } else if (square.piece === 'q' && square.pieceColor === 'white') {
+        pieceIndex = 10;
+    } else if (square.piece === 'r' && square.pieceColor === 'white') {
+        pieceIndex = 11;
     }
 
-    const content = (piece !== '') ? <img src={images[pieceIndex]} alt={piece} className="Piece" /> : '';
+
+    const content = (square.piece !== '') ? <img src={images[pieceIndex]} alt={square.piece} className="Piece" /> : '';
 
     return (
-        <div className={`Square ${color}`} onClick={() => clickHandler(index)}>
+        <div className={`Square ${square.squareColor}`} onClick={() => clickHandler(index)}>
             {content}
         </div>
     )
