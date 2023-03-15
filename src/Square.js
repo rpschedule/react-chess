@@ -8,7 +8,6 @@ function importAll(r) {
 export default function Square({ color, square, index, clickHandler }) {
     let pieceIndex;
 
-
     if (square.piece === 'b' && square.pieceColor === 'black') {
         pieceIndex = 0;
     } else if (square.piece === 'k' && square.pieceColor === 'black') {
