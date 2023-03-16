@@ -114,7 +114,13 @@ function knight (board, origin) {
     // uppermost left
     if ( origin - 17 >= 0 && origin - 17 <= 63 && board[origin - 17].rank === board[origin].rank - 2 && board[origin].pieceColor !== board[origin - 17].pieceColor) legalMoves.push(origin - 17);
 
-
-    console.log(legalMoves)
     return legalMoves;
+}
+
+function pawn (board, origin) {
+    let legalMoves = [];
+
+    if ( board[origin - 8].piece === '' && !board[origin].hasMoved ) legalMoves.push(origin - 16)
+    
+    if ( board[origin - 8].piece === '' ) legalMoves.push(origin - 8)
 }
