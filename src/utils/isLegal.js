@@ -3,11 +3,10 @@ export default function isLegal (board, origin, destination) {
     let legalMoves = [];
     if ( board[origin].piece === 'r' || board[origin].piece === 'q') legalMoves = legalMoves.concat(rook(board, origin));
     if ( board[origin].piece === 'b' || board[origin].piece === 'q') legalMoves = legalMoves.concat(bishop(board, origin));
-
-    console.log(legalMoves)
-
+    if ( board[origin].piece === 'n' ) legalMoves = legalMoves.concat(knight(board, origin));
+    
     // remove this later, it's just to allow moves other than rooks, queens, and bishops
-    if (  !/r|q|b/.test(board[origin].piece) ) return true;
+    if (  !/r|q|b|n/.test(board[origin].piece) ) return true;
 
     if ( legalMoves.includes(destination) ) return true;
     return false;
@@ -85,7 +84,6 @@ function bishop (board, origin) {
         if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
-    console.log('legalMoves', legalMoves)
     return legalMoves;
 }
 
@@ -93,5 +91,30 @@ function knight (board, origin) {
     let legalMoves = [];
 
     // uppermost right
-    if ( board[origin - 15] >= 0 && board[origin - 15] <= 63 && board[origin].pieceColor !== board[origin].pieceColor) legalMoves.push(origin - 15);
+    if ( origin - 15 >= 0 && origin - 15 <= 63 && board[origin - 15].rank === board[origin].rank - 2 && board[origin].pieceColor !== board[origin - 15].pieceColor) legalMoves.push(origin - 15);
+
+    // rightmost upper
+    if ( origin - 6 >= 0 && origin - 6 <= 63 && board[origin - 6].rank === board[origin].rank - 1 && board[origin].pieceColor !== board[origin  - 6].pieceColor) legalMoves.push(origin  - 6);
+    
+    // rightmost lower
+    if ( origin + 10 >= 0 && origin + 10 <= 63 && board[origin + 10].rank === board[origin].rank + 1 && board[origin].pieceColor !== board[origin + 10].pieceColor) legalMoves.push(origin + 10);
+
+    // lowermost right
+    if ( origin + 17 >= 0 && origin + 17 <= 63 && board[origin + 17].rank === board[origin].rank + 2 && board[origin].pieceColor !== board[origin + 17].pieceColor) legalMoves.push(origin + 17);
+
+    // lowermost left
+    if ( origin + 15 >= 0 && origin + 15 <= 63 && board[origin + 15].rank === board[origin].rank + 2 && board[origin].pieceColor !== board[origin + 15].pieceColor) legalMoves.push(origin + 15);
+
+    // leftmost bottom
+    if ( origin + 6 >= 0 && origin + 6 <= 63 && board[origin + 6].rank === board[origin].rank + 1 && board[origin].pieceColor !== board[origin  + 6].pieceColor) legalMoves.push(origin  + 6);
+
+    // leftmost upper
+    if ( origin - 10 >= 0 && origin - 10 <= 63 && board[origin - 10].rank === board[origin].rank - 1 && board[origin].pieceColor !== board[origin - 10].pieceColor) legalMoves.push(origin - 10);
+
+    // uppermost left
+    if ( origin - 17 >= 0 && origin - 17 <= 63 && board[origin - 17].rank === board[origin].rank - 2 && board[origin].pieceColor !== board[origin - 17].pieceColor) legalMoves.push(origin - 17);
+
+
+    console.log(legalMoves)
+    return legalMoves;
 }

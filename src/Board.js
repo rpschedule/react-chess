@@ -12,7 +12,6 @@ export default function Board ({ fen }) {
     const [prevMove, setPrevMove] = useState(-1);
     const [board, setBoard] = useState( loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0') );
 
-    console.log(board)
 
     function handleClick (square) {
         // if is first click and square is empty, return
@@ -36,10 +35,7 @@ export default function Board ({ fen }) {
 function renderBoard (board, handleClick) {
     const boardRendered = board.map((square, index) =>
         <Square key={index} square={square} index={index} clickHandler={handleClick}/>
-    );
-
-    console.log(boardRendered)
-    
+    );    
 
     return (
         <div className="Board">

@@ -41,8 +41,6 @@ export default function loadFen (fen) {
             out[i+offset].pieceColor = isUpperCase(char) ? 'white' : 'black';
         }
 
-        console.log(out[i+offset])
-
         i++;
     }
 
