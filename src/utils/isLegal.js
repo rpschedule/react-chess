@@ -120,7 +120,17 @@ function knight (board, origin) {
 function pawn (board, origin) {
     let legalMoves = [];
 
-    if ( board[origin - 8].piece === '' && !board[origin].hasMoved ) legalMoves.push(origin - 16)
-    
-    if ( board[origin - 8].piece === '' ) legalMoves.push(origin - 8)
+    if ( board[origin].pieceColor === 'white') {
+        if ( board[origin - 16].piece === '' && !board[origin].hasMoved ) legalMoves.push(origin - 16) // first move twice
+        if ( board[origin - 8].piece === '' ) legalMoves.push(origin - 8) // move once
+        if ( board[origin - 7].piece !== '' ) legalMoves.push(origin - 7) // take left
+        if ( board[origin - 9].piece !== '' ) legalMoves.push(origin - 9) // take right
+    }
+
+    if ( board[origin].pieceColor === 'black') {
+        if ( board[origin + 16].piece === '' && !board[origin].hasMoved ) legalMoves.push(origin - 16) // first move twice
+        if ( board[origin + 8].piece === '' ) legalMoves.push(origin - 8) // move once
+        if ( board[origin + 7].piece !== '' ) legalMoves.push(origin - 7) // take left
+        if ( board[origin + 9].piece !== '' ) legalMoves.push(origin - 9) // take right
+    }
 }
