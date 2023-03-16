@@ -13,6 +13,8 @@ export default function move(board, origin, destination) {
             piece: '',
             pieceColor: '',
             squareColor: board[origin].squareColor,
+            file: board[origin].file,
+            rank: board[origin].rank,
         };
     }
     

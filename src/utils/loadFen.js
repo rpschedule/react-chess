@@ -4,9 +4,7 @@
  * @param {string} fen - The FEN string to load
  */
 export default function loadFen (fen) {
-    let out = Array(64)
-    .fill({})
-    .map((square, index) => {
+    let out = Array(64).fill({}).map((square, index) => {
         // if it's an odd row, offset index by 1
         const offset = Math.floor(index / 8) % 2;
         
@@ -19,8 +17,9 @@ export default function loadFen (fen) {
             pieceColor: '',
             squareColor: color,
             hasMoved: false,
-        }
-    })
+            file: String.fromCharCode(97 + index % 8),
+            rank: Math.floor(index/8) + 1,
+    }})
     
     // cleans up the fen string for processing
     fen = fen.replaceAll('/', '');
