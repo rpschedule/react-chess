@@ -88,3 +88,10 @@ function bishop (board, origin) {
     console.log('legalMoves', legalMoves)
     return legalMoves;
 }
+
+function knight (board, origin) {
+    let legalMoves = [];
+
+    // uppermost right
+    if ( board[origin - 15] >= 0 && board[origin - 15] <= 63 && board[origin].pieceColor !== board[origin].pieceColor) legalMoves.push(origin - 15);
+}
