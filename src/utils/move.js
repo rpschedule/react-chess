@@ -12,14 +12,11 @@ export default function move(board, origin, destination) {
 
         board = board.map((square) => Object.assign(square, { pawnJustMovedTwice: false }))
 
-        board[origin] = {
+        board[origin] = Object.assign(board[origin], {
             piece: '',
             pieceColor: '',
-            squareColor: board[origin].squareColor,
-            file: board[origin].file,
-            rank: board[origin].rank,
             pawnJustMovedTwice: (origin - 16 === destination || origin + 16 === destination) && board[origin].piece === 'p' ? true : false,
-        };
+        });
     }
     
     return out;
