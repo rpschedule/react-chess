@@ -20,7 +20,8 @@ export default function loadFen (fen) {
             file: String.fromCharCode(97 + index % 8),
             rank: Math.floor(index/8) + 1,
             pawnJustMovedTwice: false, // will be false if is not pawn
-    }})
+        }
+    })
     
     // cleans up the fen string for processing
     fen = fen.replaceAll('/', '');

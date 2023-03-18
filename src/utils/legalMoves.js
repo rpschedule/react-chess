@@ -7,13 +7,12 @@ export default function isLegal (board, origin, destination) {
     if ( board[origin].piece === 'p' ) legalMoves = legalMoves.concat(pawn(board, origin));
     
     //return an array of objects
-    return 
+
+    const moves = legalMoves.map((move) => move.move);
+    const piecesTaken = legalMoves.map((move) => move.pieceTaken);
 
     // remove this later, it's just to allow moves other than rooks, queens, and bishops
-    if (  !/r|q|b|n|p/.test(board[origin].piece) ) return true;
-
-    if ( legalMoves.includes(destination) ) return true;
-    return false;
+    return { moves, piecesTaken };
 }
 
 function rook (board, origin) {
@@ -23,7 +22,7 @@ function rook (board, origin) {
     // Possible micro-optimization: initiate i as origin - 8 and cut out checking that i !== origin
     // loop upwards starting at origin until i < 0 or has touched a piece
     for ( let i = origin; i >= 0 && !hasTouchedPiece; i -= 8 ) {
-        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push(i);
+        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push({ move: i, pieceTaken: i });
         if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
@@ -31,7 +30,7 @@ function rook (board, origin) {
     
     //down
     for ( let i = origin; i <= 63 && !hasTouchedPiece; i += 8) {
-        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push(i);
+        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push({ move: i, pieceTaken: i });
         if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
@@ -39,7 +38,7 @@ function rook (board, origin) {
 
     // right
     for ( let i = origin; i <= origin - (origin%8) + 7 && !hasTouchedPiece; i++ ) {
-        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push(i);
+        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push({ move: i, pieceTaken: i });
         if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
@@ -47,7 +46,7 @@ function rook (board, origin) {
 
     // left
     for ( let i = origin; i >= origin - origin%8 && !hasTouchedPiece; i-- ) {
-        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push(i);
+        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push({ move: i, pieceTaken: i });
         if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
@@ -84,7 +83,7 @@ function bishop (board, origin) {
         
     //upper left
     for ( let i = origin; i > 0 && !hasTouchedPiece && board[i].squareColor === board[origin].squareColor; i -= 9) {
-        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push(i);
+        if ( i !== origin && board[origin].pieceColor !== board[i].pieceColor ) legalMoves.push({ move: i, pieceTaken: i });
         if ( i !== origin && board[i].piece !== '' ) hasTouchedPiece = true;
     }
 
@@ -125,7 +124,7 @@ function pawn (board, origin) {
     let legalMoves = [];
 
     if ( board[origin].pieceColor === 'white') {
-        if ( board[origin - 16].piece === '' && !board[origin].hasMoved ) legalMoves.push(origin - 16) // first move twice
+        if ( board[origin - 16].piece === '' && !board[origin].hasMoved ) legalMoves.push({ move: origin - 16, pieceTaken: origin - 16 }) // first move twice
         if ( board[origin - 8].piece === '' ) legalMoves.push({ move: origin - 8, pieceTaken: origin - 8 }) // move once
         if ( board[origin - 7].piece !== '' ) legalMoves.push({ move: origin - 7, pieceTaken: origin - 7 }) // take left
         if ( board[origin - 9].piece !== '' ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 9 }) // take right
@@ -134,7 +133,7 @@ function pawn (board, origin) {
     }
 
     if ( board[origin].pieceColor === 'black') {
-        if ( board[origin + 16].piece === '' && !board[origin].hasMoved ) legalMoves.push(origin + 16) // first move twice
+        if ( board[origin + 16].piece === '' && !board[origin].hasMoved ) legalMoves.push({ move: origin + 16, pieceTaken: origin + 16 }) // first move twice
         if ( board[origin + 8].piece === '' ) legalMoves.push({ move: origin + 8, pieceTaken: origin + 8 }) // move once
         if ( board[origin + 7].piece !== '' ) legalMoves.push({ move: origin + 7, pieceTaken: origin + 7 }) // take left
         if ( board[origin + 9].piece !== '' ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 9 }) // take right
