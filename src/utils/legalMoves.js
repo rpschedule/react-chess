@@ -11,7 +11,6 @@ export default function isLegal (board, origin, destination) {
     const moves = legalMoves.map((move) => move.move);
     const piecesTaken = legalMoves.map((move) => move.pieceTaken);
 
-    // remove this later, it's just to allow moves other than rooks, queens, and bishops
     return { moves, piecesTaken };
 }
 

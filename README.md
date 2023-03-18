@@ -1,5 +1,7 @@
-## TODO - GENERAL
+## TODO 
 ---
+
+### GENERAL
 - [X] Create board
 - [X] Add pieces
 - [X] Add FEN loading
@@ -12,7 +14,6 @@
 - [ ] Add accounts/google auth
 - [ ] Add personalization (maybe behind a mild paywall to fund server)
 
-## TODO - REWORK
----
-- [] Change while loop into for loop in loadFen.js
-- [] Add optional prop to change starting fen
+### REWORK
+- [ ] Change while loop into for loop in loadFen.js
+- [ ] Add optional prop to change starting fen
