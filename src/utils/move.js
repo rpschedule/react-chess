@@ -1,13 +1,12 @@
-import getLegalMoves from './getPseudoLegalMoves.js'
+import getLegalMoves from './getLegalMoves.js'
 
 export default function move(board, origin, destination) {
     // prevents deleting pieces
     if ( origin === destination ) return board;
 
-    let out = board; // out = [{piece: r, ...}, {piece: k, ...}, . . . ]
-    const { moves, piecesTaken } = getLegalMoves(board, origin, destination) // moves = [15, 16, ...] & piecesTaken = [15, 16, ...]
+    const { moves, piecesTaken } = getLegalMoves(board, origin) // moves = [15, 16, ...] & piecesTaken = [15, 16, ...]
 
-    // prevents players from deleting pieces
+    // prevents players from deleting pieces and checks for legality
     if ( board[origin].piece !== '' && moves.includes(destination)) { 
 
         // resets pawnjustmovedtwice after one turn
@@ -36,5 +35,5 @@ export default function move(board, origin, destination) {
         });
     }
     
-    return out;
+    return board;
 }

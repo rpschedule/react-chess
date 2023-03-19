@@ -1,5 +1,6 @@
 export default function getPseudoLegalMoves (board, origin) {
-    
+    console.log(board, origin)
+
     let legalMoves = [];
     if ( board[origin].piece === 'r' || board[origin].piece === 'q') legalMoves = legalMoves.concat(rook(board, origin));
     if ( board[origin].piece === 'b' || board[origin].piece === 'q') legalMoves = legalMoves.concat(bishop(board, origin));
@@ -180,14 +181,14 @@ function pawn (board, origin) {
 function king (board, origin) {
     let legalMoves = [];
 
-    if ( board[origin - 9].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 9 });
-    if ( board[origin - 8].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 8, pieceTaken: origin - 8 });
-    if ( board[origin - 7].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 7, pieceTaken: origin - 7 });
-    if ( board[origin - 1].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 1, pieceTaken: origin - 1 });
-    if ( board[origin + 1].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 1, pieceTaken: origin + 1 });
-    if ( board[origin + 7].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 7, pieceTaken: origin + 7 });
-    if ( board[origin + 8].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 8, pieceTaken: origin + 8 });
-    if ( board[origin + 9].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 9 });
+    if ( origin - 9 >= 0 && origin - 9 <= 63 && board[origin - 9].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 9 });
+    if ( origin - 8 >= 0 && origin - 8 <= 63 && board[origin - 8].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 8, pieceTaken: origin - 8 });
+    if ( origin - 7 >= 0 && origin - 7 <= 63 && board[origin - 7].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 7, pieceTaken: origin - 7 });
+    if ( origin - 1 >= 0 && origin - 1 <= 63 && board[origin - 1].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin - 1, pieceTaken: origin - 1 });
+    if ( origin + 1 >= 0 && origin + 1 <= 63 && board[origin + 1].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 1, pieceTaken: origin + 1 });
+    if ( origin + 7 >= 0 && origin + 7 <= 63 && board[origin + 7].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 7, pieceTaken: origin + 7 });
+    if ( origin + 8 >= 0 && origin + 8 <= 63 && board[origin + 8].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 8, pieceTaken: origin + 8 });
+    if ( origin + 9 >= 0 && origin + 9 <= 63 && board[origin + 9].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 9 });
 
     return legalMoves;
 }
