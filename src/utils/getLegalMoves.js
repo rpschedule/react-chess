@@ -5,6 +5,15 @@ export default function getLegalMoves (board, origin) {
     let legalMoves = [];
     let legalPiecesTaken = [];
 
+    for ( move in moves ) {
+        board = hardMove(board, origin, moves[move], piecesTaken[move])
+
+        for ( square in board ) {
+            if ( board[square].pieceColor !== board[moves[move]].pieceColor) {
+                const { responseMoves, responsePiecesTaken } = getPseudoLegalMoves(board, square)
+            }
+        }
+    }
 
     return { moves, piecesTaken };
 }

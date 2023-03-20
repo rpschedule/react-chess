@@ -1,3 +1,7 @@
+/***
+ * @param {array} board -- The chess board
+ * @param {}
+ */
 export default function getPseudoLegalMoves (board, origin) {
     console.log(board, origin)
 
