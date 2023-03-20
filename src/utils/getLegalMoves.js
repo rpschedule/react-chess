@@ -5,30 +5,7 @@ export default function getLegalMoves (board, origin) {
     let legalMoves = [];
     let legalPiecesTaken = [];
 
-    // console.log(1)
-    // for ( const moveIndex in moves ) {
-    //     console.log(2)
-    //     const tmpBoard = hardMove(board, origin, moves[moveIndex], piecesTaken[moveIndex])
 
-    //     console.log(3)
-    //     for ( const index in tmpBoard ) {
-    //         // filter empty squares
-    //         if ( tmpBoard[index].piece === '') {
-    //             console.log(4)
-    //             const { unusedVarible, taken } = getPseudoLegalMoves(board, index)
-    //             const indexOfKing = tmpBoard.find(square => square.piece === 'k' && square.pieceColor === board[origin].pieceColor);
-    //             console.log(5)
-
-    //             // if taken pieces does not include the king, add it to legal moves
-    //             if ( !taken.includes(indexOfKing) ) {
-    //                 tmpBoard.push(moves[moveIndex]);
-    //                 console.log(6)
-    //             }
-    //         }
-    //     }
-    // }
-
-    // console.log(legalMoves)
     return { moves, piecesTaken };
 }
 
