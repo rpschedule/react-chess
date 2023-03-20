@@ -12,15 +12,19 @@ export default function Board ({ fen }) {
     const [prevMove, setPrevMove] = useState(-1);
     const [board, setBoard] = useState( loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0') );
 
-
     function handleClick (square) {
         // if is first click and square is empty, return
+        alert('has been clicked')
         if (  prevMove === -1 && board[square].piece === '' ) return;
+        
+        alert('first click was not on a blank square')
 
         // if is first click
         if ( prevMove === -1) {
+            alert('is first click')
             setPrevMove(square);
         } else {
+            alert('is not first click')
             setBoard(move(board, prevMove, square))
             setPrevMove(-1);
         }
