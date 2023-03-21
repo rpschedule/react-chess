@@ -5,15 +5,18 @@ export default function getLegalMoves (board, origin) {
     let legalMoves = [];
     let legalPiecesTaken = [];
 
-    for ( const move in moves ) {
+    for ( move in moves ) {
+        console.log(typeof move)
+        console.log(moves)
+        console.log(moves[0])
         let tmpBoard = hardMove(board, origin, moves[move], piecesTaken[move])
         let kingWasTaken = false;
 
-        for ( const square in tmpBoard ) {
-            if ( tmpBoard[square].piece !== '' && tmpBoard[square].pieceColor !== tmpBoard[moves[move]].pieceColor) {
+        for ( square in tmpBoard ) {
+            if ( tmpBoard[square].piece !== '' && tmpBoard[square]?.pieceColor !== tmpBoard[moves[move]]?.pieceColor) {
                 const { responseMoves, responsePiecesTaken } = getPseudoLegalMoves(tmpBoard, square)
 
-                for ( const responseMove in responseMoves ) {
+                for ( responseMove in responseMoves ) {
                     if ( responsePiecesTaken[responseMove].piece === 'k' ) {
                         kingWasTaken = true;
                     }
@@ -21,14 +24,16 @@ export default function getLegalMoves (board, origin) {
             }
         }
 
+
         if ( !kingWasTaken ) {
             legalMoves.push(moves[move]);
             legalPiecesTaken.push(piecesTaken[move]);
         }
     }
 
-    alert(moves, piecesTaken)
-    return { moves, piecesTaken };
+    
+
+    return { legalMoves, legalPiecesTaken };
 }
 
 // differs to move() as hardMove() does not check to make sure the move is legal

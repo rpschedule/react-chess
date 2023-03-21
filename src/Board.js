@@ -14,18 +14,14 @@ export default function Board ({ fen }) {
 
     function handleClick (square) {
         // if is first click and square is empty, return
-        alert('has been clicked')
         if (  prevMove === -1 && board[square].piece === '' ) return;
         
-        alert('first click was not on a blank square')
 
         // if is first click
         if ( prevMove === -1) {
-            alert('is first click')
             setPrevMove(square);
         } else {
-            alert('is not first click')
-            setBoard(move(board, prevMove, square))
+            setBoard(move(board, prevMove, square)) // this errors
             setPrevMove(-1);
         }
     }

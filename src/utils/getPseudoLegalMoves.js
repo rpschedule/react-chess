@@ -3,7 +3,6 @@
  * @param {}
  */
 export default function getPseudoLegalMoves (board, origin) {
-    console.log(board, origin)
 
     let legalMoves = [];
     if ( board[origin].piece === 'r' || board[origin].piece === 'q') legalMoves = legalMoves.concat(rook(board, origin));
