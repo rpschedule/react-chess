@@ -5,18 +5,18 @@ export default function getLegalMoves (board, origin) {
     let legalMoves = [];
     let legalPiecesTaken = [];
 
-    for ( move in moves ) {
+    for ( const move in moves ) {
         console.log(typeof move)
         console.log(moves)
         console.log(moves[0])
         let tmpBoard = hardMove(board, origin, moves[move], piecesTaken[move])
         let kingWasTaken = false;
 
-        for ( square in tmpBoard ) {
+        for ( const square in tmpBoard ) {
             if ( tmpBoard[square].piece !== '' && tmpBoard[square]?.pieceColor !== tmpBoard[moves[move]]?.pieceColor) {
                 const { responseMoves, responsePiecesTaken } = getPseudoLegalMoves(tmpBoard, square)
 
-                for ( responseMove in responseMoves ) {
+                for ( const responseMove in responseMoves ) {
                     if ( responsePiecesTaken[responseMove].piece === 'k' ) {
                         kingWasTaken = true;
                     }
