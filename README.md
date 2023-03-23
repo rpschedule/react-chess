@@ -17,3 +17,6 @@
 ### REWORK
 - [ ] Change while loop into for loop in loadFen.js
 - [ ] Add optional prop to change starting fen
+
+### SPECIFIC
+- [ ] Add check to first double move to make sure pawn doesn't jump over pieces
