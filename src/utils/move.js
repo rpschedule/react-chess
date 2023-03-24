@@ -1,26 +1,22 @@
 import getPseudoLegalMoves from './getPseudoLegalMoves.js';
+import getLegalMoves from './getLegalMoves.js';
 
 export default function move(board, origin, destination) {
     // prevents deleting pieces
     if ( origin === destination ) return board;
 
-    const { moves, piecesTaken } = getPseudoLegalMoves(board, origin) // moves = [15, 16, ...] & piecesTaken = [15, 16, ...]
-
-    // console.log(getLegalMoves(board, origin).moves, getLegalMoves(board, origin).piecesTaken)
-    // console.log(getPseudoLegalMoves(board, origin).moves, getPseudoLegalMoves(board, origin).piecesTaken)
-    // console.log(moves, piecesTaken)
+    const { legalMoves, legalPiecesTaken } = getLegalMoves(board, origin) // legalMoves = [15, 16, ...] & legalPiecesTaken = [15, 16, ...]
+    let out = board;
 
     // prevents players from deleting pieces and checks for legality
-    if ( board[origin].piece !== '' && moves.includes(destination)) { 
-        let out = board;
-
+    if ( board[origin].piece !== '' && legalMoves.includes(destination)) { 
         // resets pawnjustmovedtwice after one turn
         out = out.map((square) => Object.assign(square, { 
             pawnJustMovedTwice: false,
         }))
 
         // change the square that will be taken
-        out[piecesTaken[moves.indexOf(destination)]] = Object.assign(out[piecesTaken[moves.indexOf(destination)]], {
+        out[legalPiecesTaken[legalMoves.indexOf(destination)]] = Object.assign(out[legalPiecesTaken[legalMoves.indexOf(destination)]], {
             piece: '',
             pieceColor: '',
         });
@@ -41,5 +37,5 @@ export default function move(board, origin, destination) {
         });
     }
     
-    return board;
+    return out;
 }
