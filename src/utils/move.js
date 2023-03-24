@@ -1,11 +1,10 @@
-import getLegalMoves from './getLegalMoves.js'
 import getPseudoLegalMoves from './getPseudoLegalMoves.js';
 
 export default function move(board, origin, destination) {
     // prevents deleting pieces
     if ( origin === destination ) return board;
 
-    const { moves, piecesTaken } = getLegalMoves(board, origin) // moves = [15, 16, ...] & piecesTaken = [15, 16, ...]
+    const { moves, piecesTaken } = getPseudoLegalMoves(board, origin) // moves = [15, 16, ...] & piecesTaken = [15, 16, ...]
 
     // console.log(getLegalMoves(board, origin).moves, getLegalMoves(board, origin).piecesTaken)
     // console.log(getPseudoLegalMoves(board, origin).moves, getPseudoLegalMoves(board, origin).piecesTaken)
