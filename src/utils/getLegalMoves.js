@@ -5,7 +5,7 @@ export default function getLegalMoves(board, origin) {
     let legalPiecesTaken = [];
 
     for (let i = 0; i < moves.length; i++) {
-        let tmpBoard = hardMove(board, origin, moves[i], piecesTaken[i]);
+        let tmpBoard = hardMove(board, origin, moves[i], piecesTaken[i]); // this is the problem
 
         let kingTaken = false;
         for ( let squareIndex = 0; squareIndex < tmpBoard.length && !kingTaken; squareIndex++ ) {
@@ -28,7 +28,7 @@ export default function getLegalMoves(board, origin) {
 }
 
 function hardMove(board, origin, destination, pieceTaken) {
-    let out = board;
+    let out = [...board];
 
     // resets pawnjustmovedtwice after one turn
     out = out.map((square) => Object.assign(square, {
