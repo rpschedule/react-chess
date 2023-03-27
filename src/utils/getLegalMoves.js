@@ -27,30 +27,30 @@ export default function getLegalMoves(board, origin) {
     return { legalMoves, legalPiecesTaken }
 }
 
-function hardMove(board, origin, destination, pieceTaken) {
-    let out = [...board];
+function hardMove(board1, origin1, destination1, pieceTaken1) {
+    let out1 = board1;
 
     // resets pawnjustmovedtwice after one turn
-    out = out.map((square) => Object.assign(square, {
+    out1 = out1.map((square) => Object.assign(square, {
         pawnJustMovedTwice: false,
     }))
 
-    out[pieceTaken] = Object.assign(out[pieceTaken], {
+    out1[pieceTaken1] = Object.assign(out1[pieceTaken1], {
         piece: '',
         pieceColor: '',
     });
 
-    out[destination] = Object.assign(out[destination], {
-        piece: board[origin].piece,
-        pieceColor: board[origin].pieceColor,
+    out1[destination1] = Object.assign(out1[destination1], {
+        piece: board1[origin1].piece,
+        pieceColor: board1[origin1].pieceColor,
         hasMoved: true,
-        pawnJustMovedTwice: (origin - 16 === destination || origin + 16 === destination) && board[origin].piece === 'p',
+        pawnJustMovedTwice: (origin1 - 16 === destination1 || origin1 + 16 === destination1) && board1[origin1].piece === 'p',
     })
 
-    out[origin] = Object.assign(out[origin], {
+    out1[origin1] = Object.assign(out1[origin1], {
         piece: '',
         pieceColor: '',
     });
 
-    return out;
+    return out1;
 }
