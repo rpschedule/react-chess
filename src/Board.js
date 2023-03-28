@@ -15,13 +15,12 @@ export default function Board ({ fen }) {
     function handleClick (square) {
         // if is first click and square is empty, return
         if (  prevMove === -1 && board[square].piece === '' ) return;
-        
 
         // if is first click
         if ( prevMove === -1) {
             setPrevMove(square);
         } else {
-            setBoard(move(board, prevMove, square)) // this errors
+            setBoard(move(board, prevMove, square))
             setPrevMove(-1);
         }
     }
