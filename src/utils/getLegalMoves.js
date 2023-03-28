@@ -1,6 +1,6 @@
 /***
- * @param {array} board -- The chess board
- * @param {integer} origin -- The position of the piece 0-63
+ * @param {array} board The chess board
+ * @param {integer} origin The position of the piece 0-63
  */
 export default function getPseudoLegalMoves (board, origin) {
 

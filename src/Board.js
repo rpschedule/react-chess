@@ -3,6 +3,7 @@ import './Board.css';
 import loadFen from "./utils/loadFen.js";
 import move from './utils/move.js'
 import { useState } from 'react';
+import getLegalMoves from "./utils/getLegalMoves.js";
 
 /**
  * Creates a chess board
@@ -20,7 +21,13 @@ export default function Board ({ fen }) {
         if ( prevMove === -1) {
             setPrevMove(square);
         } else {
-            setBoard(move(board, prevMove, square))
+            const legalMoves = getLegalMoves(board, prevMove);
+            if ( legalMoves.moves.includes(square) ) {
+                console.log(board) // why does this get modified before setBoard is ran?
+                setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
+                console.log(board)
+                console.log(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]))
+            }
             setPrevMove(-1);
         }
     }

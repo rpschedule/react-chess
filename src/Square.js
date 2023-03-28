@@ -5,7 +5,7 @@ function importAll(r) {
     return r.keys().map(r);
 }
 
-export default function Square({ color, square, index, clickHandler }) {
+export default function Square({ square, index, clickHandler }) {
     let pieceIndex;
 
     if (square.piece === 'b' && square.pieceColor === 'black') {
@@ -33,7 +33,6 @@ export default function Square({ color, square, index, clickHandler }) {
     } else if (square.piece === 'r' && square.pieceColor === 'white') {
         pieceIndex = 11;
     }
-
 
     const content = (square.piece !== '') ? <img src={images[pieceIndex]} alt={square.piece} className="Piece" /> : '';
 
