@@ -12,7 +12,7 @@ export default function move ( board, origin, destination, pieceTaken ) {
 
     outBoard[destination] = Object.assign(outBoard[destination], {
         piece: board[origin].piece,
-        pieceTaken: board[origin].pieceColor,
+        pieceColor: board[origin].pieceColor,
         hasMoved: true,
         pawnJustMovedTwice: board[origin].piece === 'p' && (origin - 16 === destination || origin + 16 === destination),
     })
