@@ -1,8 +1,10 @@
+import move from "./move";
+
 /***
  * @param {array} board The chess board
  * @param {integer} origin The position of the piece 0-63
  */
-export default function getPseudoLegalMoves (board, origin) {
+export default function getLegalMoves (board, origin) {
 
     let legalMoves = [];
     if ( board[origin].piece === 'r' || board[origin].piece === 'q') legalMoves = legalMoves.concat(rook(board, origin));
@@ -11,12 +13,36 @@ export default function getPseudoLegalMoves (board, origin) {
     if ( board[origin].piece === 'p' ) legalMoves = legalMoves.concat(pawn(board, origin));
     if ( board[origin].piece === 'k') legalMoves = legalMoves.concat(king(board, origin))
     
-    //return an array of objects
-
     const moves = legalMoves.map((move) => move.move);
     const piecesTaken = legalMoves.map((move) => move.pieceTaken);
+    let finalLegalMoves = [];
+    let finalLegalPiecesTaken = [];
 
-    return { moves, piecesTaken };
+    for ( const moveIndex in moves ) {
+        let tmpBoard = board;
+        tmpBoard = move(tmpBoard, origin, moves[moveIndex], piecesTaken[moveIndex])
+
+        for ( const squareIndex in tmpBoard ) {
+            if ( tmpBoard[squareIndex].piece !== '' && tmpBoard[squareIndex].pieceColor !== board[origin].pieceColor) {
+                let legalResponses = [];
+
+                if ( tmpBoard[squareIndex].piece === 'r' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(rook(tmpBoard, squareIndex));
+                if ( tmpBoard[squareIndex].piece === 'b' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(bishop(tmpBoard, squareIndex));
+                if ( tmpBoard[squareIndex].piece === 'n' ) legalResponses = legalResponses.concat(knight(tmpBoard, squareIndex));
+                if ( tmpBoard[squareIndex].piece === 'p' ) legalResponses = legalResponses.concat(pawn(tmpBoard, squareIndex));
+                if ( tmpBoard[squareIndex].piece === 'k') legalResponses = legalResponses.concat(king(tmpBoard, squareIndex))
+
+                for ( const responseIndex in legalResponses ) {
+                    if ( tmpBoard[legalResponses[responseIndex]].piece !== 'k' ) {
+                        finalLegalMoves.push(moves[moveIndex]);
+                        finalLegalPiecesTaken.push(piecesTaken[moveIndex]);
+                    }
+                }
+            }
+        }
+    }
+
+    return { moves: finalLegalMoves, piecesTaken: finalLegalPiecesTaken };
 }
 
 function rook (board, origin) {

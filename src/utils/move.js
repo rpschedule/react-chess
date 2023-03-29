@@ -1,3 +1,11 @@
+/***
+ * Move a piece to a destination
+ * @param {array} board - The board
+ * @param {number} origin - The index of the piece to move
+ * @param {number} destination - The index of the piece's destination
+ * @param {number} pieceTaken - The index of the piece taken - used for en passant
+ * @returns {array} The board once the piece has moved
+ */
 export default function move ( board, origin, destination, pieceTaken ) {
     let outBoard = board;
 
