@@ -18,22 +18,23 @@ export default function getLegalMoves (board, origin) {
     let finalLegalMoves = [];
     let finalLegalPiecesTaken = [];
 
+    console.log(board) // for some reason board is being modified here
+
     for ( const moveIndex in moves ) {
         let tmpBoard = board;
         tmpBoard = move(tmpBoard, origin, moves[moveIndex], piecesTaken[moveIndex])
-
         for ( const squareIndex in tmpBoard ) {
             if ( tmpBoard[squareIndex].piece !== '' && tmpBoard[squareIndex].pieceColor !== board[origin].pieceColor) {
                 let legalResponses = [];
 
-                if ( tmpBoard[squareIndex].piece === 'r' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(rook(tmpBoard, squareIndex));
-                if ( tmpBoard[squareIndex].piece === 'b' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(bishop(tmpBoard, squareIndex));
-                if ( tmpBoard[squareIndex].piece === 'n' ) legalResponses = legalResponses.concat(knight(tmpBoard, squareIndex));
-                if ( tmpBoard[squareIndex].piece === 'p' ) legalResponses = legalResponses.concat(pawn(tmpBoard, squareIndex));
-                if ( tmpBoard[squareIndex].piece === 'k') legalResponses = legalResponses.concat(king(tmpBoard, squareIndex))
+                if ( tmpBoard[squareIndex].piece === 'r' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(rook(tmpBoard, Number(squareIndex)));
+                if ( tmpBoard[squareIndex].piece === 'b' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(bishop(tmpBoard, Number(squareIndex)));
+                if ( tmpBoard[squareIndex].piece === 'n' ) legalResponses = legalResponses.concat(knight(tmpBoard, Number(squareIndex)));
+                if ( tmpBoard[squareIndex].piece === 'p' ) legalResponses = legalResponses.concat(pawn(tmpBoard, Number(squareIndex)));
+                if ( tmpBoard[squareIndex].piece === 'k') legalResponses = legalResponses.concat(king(tmpBoard, Number(squareIndex)));
 
                 for ( const responseIndex in legalResponses ) {
-                    if ( tmpBoard[legalResponses[responseIndex]].piece !== 'k' ) {
+                    if ( tmpBoard[legalResponses[responseIndex].move].piece !== 'k' ) {
                         finalLegalMoves.push(moves[moveIndex]);
                         finalLegalPiecesTaken.push(piecesTaken[moveIndex]);
                     }
@@ -42,12 +43,13 @@ export default function getLegalMoves (board, origin) {
         }
     }
 
-    return { moves: finalLegalMoves, piecesTaken: finalLegalPiecesTaken };
+    return { moves: moves, piecesTaken: piecesTaken };
 }
 
 function rook (board, origin) {
     let legalMoves = [];
     let hasTouchedPiece = false;
+
 
     // Possible micro-optimization: initiate i as origin - 8 and cut out checking that i !== origin
     // loop upwards starting at origin until i < 0 or has touched a piece

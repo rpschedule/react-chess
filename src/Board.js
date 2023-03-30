@@ -29,7 +29,6 @@ export default function Board ({ fen }) {
         }
     }
 
-    console.log(board)
 
     return ( renderBoard(board, handleClick) );
 }
