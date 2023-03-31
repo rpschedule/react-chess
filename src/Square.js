@@ -34,7 +34,7 @@ export default function Square({ square, index, clickHandler }) {
         pieceIndex = 11;
     }
 
-    const content = (square.piece !== '') ? <img src={images[pieceIndex]} alt={square.piece} className="Piece" /> : '';
+    const content = (square.piece !== '') && <img src={images[pieceIndex]} alt={square.piece} className="Piece" />;
 
     return (
         <div className={`Square ${square.squareColor}`} onClick={() => clickHandler(index)}>

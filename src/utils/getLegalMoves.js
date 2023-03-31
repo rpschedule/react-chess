@@ -37,8 +37,8 @@ export default function getLegalMoves (board, origin) {
                     console.log(tmpBoard[legalResponses[responseIndex].move].piece)
                     if ( tmpBoard[legalResponses[responseIndex].move].piece !== 'k' ) {
                         console.log(tmpBoard[legalResponses[responseIndex].move].piece)
-                        finalLegalMoves.push(moves[moveIndex]);
-                        finalLegalPiecesTaken.push(piecesTaken[moveIndex]);
+                        if ( !finalLegalMoves.includes(moves[moveIndex])) finalLegalMoves.push(moves[moveIndex]);
+                        if ( !finalLegalPiecesTaken.includes(piecesTaken[moveIndex])) finalLegalPiecesTaken.push(piecesTaken[moveIndex]);
                     }
                 }
             }
