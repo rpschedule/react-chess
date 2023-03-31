@@ -21,7 +21,7 @@ export default function getLegalMoves (board, origin) {
     console.log(board) // for some reason board is being modified here
 
     for ( const moveIndex in moves ) {
-        let tmpBoard = board;
+        let tmpBoard = structuredClone(board);
         tmpBoard = move(tmpBoard, origin, moves[moveIndex], piecesTaken[moveIndex])
         for ( const squareIndex in tmpBoard ) {
             if ( tmpBoard[squareIndex].piece !== '' && tmpBoard[squareIndex].pieceColor !== board[origin].pieceColor) {
@@ -34,7 +34,9 @@ export default function getLegalMoves (board, origin) {
                 if ( tmpBoard[squareIndex].piece === 'k') legalResponses = legalResponses.concat(king(tmpBoard, Number(squareIndex)));
 
                 for ( const responseIndex in legalResponses ) {
+                    console.log(tmpBoard[legalResponses[responseIndex].move].piece)
                     if ( tmpBoard[legalResponses[responseIndex].move].piece !== 'k' ) {
+                        console.log(tmpBoard[legalResponses[responseIndex].move].piece)
                         finalLegalMoves.push(moves[moveIndex]);
                         finalLegalPiecesTaken.push(piecesTaken[moveIndex]);
                     }
@@ -43,7 +45,9 @@ export default function getLegalMoves (board, origin) {
         }
     }
 
-    return { moves: moves, piecesTaken: piecesTaken };
+    console.log(finalLegalMoves, finalLegalPiecesTaken)
+
+    return { moves: finalLegalMoves, piecesTaken: finalLegalPiecesTaken };
 }
 
 function rook (board, origin) {
