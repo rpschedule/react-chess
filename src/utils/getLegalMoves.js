@@ -18,10 +18,9 @@ export default function getLegalMoves (board, origin) {
     let finalLegalMoves = [];
     let finalLegalPiecesTaken = [];
 
-    console.log(board) // for some reason board is being modified here
-
     for ( const moveIndex in moves ) {
         let tmpBoard = structuredClone(board);
+        let kingTaken = false;
         tmpBoard = move(tmpBoard, origin, moves[moveIndex], piecesTaken[moveIndex])
         for ( const squareIndex in tmpBoard ) {
             if ( tmpBoard[squareIndex].piece !== '' && tmpBoard[squareIndex].pieceColor !== board[origin].pieceColor) {
@@ -34,18 +33,17 @@ export default function getLegalMoves (board, origin) {
                 if ( tmpBoard[squareIndex].piece === 'k') legalResponses = legalResponses.concat(king(tmpBoard, Number(squareIndex)));
 
                 for ( const responseIndex in legalResponses ) {
-                    console.log(tmpBoard[legalResponses[responseIndex].move].piece)
-                    if ( tmpBoard[legalResponses[responseIndex].move].piece !== 'k' ) {
-                        console.log(tmpBoard[legalResponses[responseIndex].move].piece)
-                        if ( !finalLegalMoves.includes(moves[moveIndex])) finalLegalMoves.push(moves[moveIndex]);
-                        if ( !finalLegalPiecesTaken.includes(piecesTaken[moveIndex])) finalLegalPiecesTaken.push(piecesTaken[moveIndex]);
+                    if ( tmpBoard[legalResponses[responseIndex].move].piece === 'k' ) { // its going through every legal move, and most will not taken the king so they all push the move, though this should not happen
+                        kingTaken = true
                     }
                 }
             }
+
         }
+        if ( !kingTaken ) finalLegalMoves.push(moves[moveIndex]);
+        if ( !kingTaken ) finalLegalPiecesTaken.push(piecesTaken[moveIndex])
     }
 
-    console.log(finalLegalMoves, finalLegalPiecesTaken)
 
     return { moves: finalLegalMoves, piecesTaken: finalLegalPiecesTaken };
 }
