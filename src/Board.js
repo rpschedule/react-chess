@@ -12,18 +12,20 @@ import getLegalMoves from "./utils/getLegalMoves.js";
 export default function Board ({ fen }) {
     const [prevMove, setPrevMove] = useState(-1);
     const [board, setBoard] = useState( loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0') );
+    const [turn, setTurn] = useState( true ) // true: white, false: black
 
     function handleClick (square) {
         // if is first click and square is empty, return
         if (  prevMove === -1 && board[square].piece === '' ) return;
 
-        // if is first click
-        if ( prevMove === -1) {
+        // if is first click and it's the right color
+        if ( prevMove === -1 && board[square].pieceColor === (turn ? 'white' : 'black') ) {
             setPrevMove(square);
         } else {
             const legalMoves = getLegalMoves(board, prevMove);
             if ( legalMoves.moves.includes(square) ) {
                 setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
+                setTurn(!turn);
             }
             setPrevMove(-1);
         }

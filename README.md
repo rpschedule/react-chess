@@ -7,7 +7,7 @@
 - [X] Add FEN loading
 - [X] Add moving
 - [ ] Alternate turns
-- [ ] Check for legal moves
+- [X] Check for legal moves
 - [ ] Add checkmate detection
 - [ ] Add multiplayer functionality
 - [ ] Create server and deploy
@@ -19,4 +19,4 @@
 - [ ] Add optional prop to change starting fen
 
 ### SPECIFIC
-- [ ] Add check to first double move to make sure pawn doesn't jump over pieces
+- [X] Add check to first double move to make sure pawn doesn't jump over pieces
