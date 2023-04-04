@@ -30,20 +30,21 @@ export default function getLegalMoves (board, origin) {
                 if ( tmpBoard[squareIndex].piece === 'b' || tmpBoard[squareIndex].piece === 'q') legalResponses = legalResponses.concat(bishop(tmpBoard, Number(squareIndex)));
                 if ( tmpBoard[squareIndex].piece === 'n' ) legalResponses = legalResponses.concat(knight(tmpBoard, Number(squareIndex)));
                 if ( tmpBoard[squareIndex].piece === 'p' ) legalResponses = legalResponses.concat(pawn(tmpBoard, Number(squareIndex)));
-                if ( tmpBoard[squareIndex].piece === 'k') legalResponses = legalResponses.concat(king(tmpBoard, Number(squareIndex)));
+                if ( tmpBoard[squareIndex].piece === 'k' ) legalResponses = legalResponses.concat(king(tmpBoard, Number(squareIndex)));
 
                 for ( const responseIndex in legalResponses ) {
-                    if ( tmpBoard[legalResponses[responseIndex].move].piece === 'k' ) { // its going through every legal move, and most will not taken the king so they all push the move, though this should not happen
+                    if ( tmpBoard[legalResponses[responseIndex].move].piece === 'k' ) {
                         kingTaken = true
                     }
                 }
             }
-
         }
+        
         if ( !kingTaken ) finalLegalMoves.push(moves[moveIndex]);
         if ( !kingTaken ) finalLegalPiecesTaken.push(piecesTaken[moveIndex])
     }
 
+    console.log(finalLegalMoves)
 
     return { moves: finalLegalMoves, piecesTaken: finalLegalPiecesTaken };
 }
@@ -158,27 +159,26 @@ function pawn (board, origin) {
     let legalMoves = [];
 
     if ( board[origin].pieceColor === 'white') {
-        if ( origin - 16 >= 0 && origin - 16 <= 63 && board[origin - 16].piece === '' && !board[origin].hasMoved ) legalMoves.push({ move: origin - 16, pieceTaken: origin - 16 }) // first move twice
-        if ( origin - 8 >= 0 && origin - 8 <= 63 && board[origin - 8].piece === '' ) legalMoves.push({ move: origin - 8, pieceTaken: origin - 8 }) // move once
-        if ( origin - 7 >= 0 && origin - 7 <= 63 && board[origin - 7].piece !== '' ) legalMoves.push({ move: origin - 7, pieceTaken: origin - 7 }) // take left
-        if ( origin - 9 >= 0 && origin - 9 <= 63 && board[origin - 9].piece !== '' ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 9 }) // take right
-        if ( origin + 1 >= 0 && origin + 1 <= 63 && board[origin + 1].piece === 'p' && board[origin + 1].rank === board[origin].rank && board[origin + 1].pawnJustMovedTwice ) legalMoves.push({ move: origin - 7, pieceTaken: origin + 1 });
-        if ( origin - 1 >= 0 && origin - 1 <= 63 && board[origin - 1].piece === 'p' && board[origin - 1].rank === board[origin].rank && board[origin - 1].pawnJustMovedTwice ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 1 });
+        if ( board[origin - 16].pieceColor !== 'white' && origin - 16 >= 0 && origin - 16 <= 63 && board[origin - 16].piece === '' && !board[origin].hasMoved ) legalMoves.push({ move: origin - 16, pieceTaken: origin - 16 }) // first move twice
+        if ( board[origin - 8].pieceColor !== 'white' && origin - 8 >= 0 && origin - 8 <= 63 && board[origin - 8].piece === '' ) legalMoves.push({ move: origin - 8, pieceTaken: origin - 8 }) // move once
+        if ( board[origin - 7].pieceColor !== 'white' && origin - 7 >= 0 && origin - 7 <= 63 && board[origin - 7].piece !== '' ) legalMoves.push({ move: origin - 7, pieceTaken: origin - 7 }) // take left
+        if ( board[origin - 9].pieceColor !== 'white' && origin - 9 >= 0 && origin - 9 <= 63 && board[origin - 9].piece !== '' ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 9 }) // take right
+        if ( board[origin + 1].pieceColor !== 'white' && origin + 1 >= 0 && origin + 1 <= 63 && board[origin + 1].piece === 'p' && board[origin + 1].rank === board[origin].rank && board[origin + 1].pawnJustMovedTwice ) legalMoves.push({ move: origin - 7, pieceTaken: origin + 1 });
+        if ( board[origin - 1].pieceColor !== 'white' && origin - 1 >= 0 && origin - 1 <= 63 && board[origin - 1].piece === 'p' && board[origin - 1].rank === board[origin].rank && board[origin - 1].pawnJustMovedTwice ) legalMoves.push({ move: origin - 9, pieceTaken: origin - 1 });
     }
 
     if ( board[origin].pieceColor === 'black') {
-        if ( origin + 16 >= 0 && origin + 16 <= 63 && board[origin + 16].piece === '' && !board[origin].hasMoved ) legalMoves.push({ move: origin + 16, pieceTaken: origin + 16 }) // first move twice
-        if ( origin + 8 >= 0 && origin + 8 <= 63 && board[origin + 8].piece === '' ) legalMoves.push({ move: origin + 8, pieceTaken: origin + 8 }) // move once
-        if ( origin + 7 >= 0 && origin + 7 <= 63 && board[origin + 7].piece !== '' ) legalMoves.push({ move: origin + 7, pieceTaken: origin + 7 }) // take left
-        if ( origin + 9 >= 0 && origin + 9 <= 63 && board[origin + 9].piece !== '' ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 9 }) // take right
-        if ( origin - 1 >= 0 && origin - 1 <= 63 && board[origin - 1].piece === 'p' && board[origin - 1].rank === board[origin].rank && board[origin - 1].pawnJustMovedTwice ) legalMoves.push({ move: origin + 7, pieceTaken: origin - 1 });
-        if ( origin + 1 >= 0 && origin + 1 <= 63 && board[origin + 1].piece === 'p' && board[origin + 1].rank === board[origin].rank && board[origin + 1].pawnJustMovedTwice ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 1 });
+        if ( board[origin + 16].pieceColor !== 'black' && origin + 16 >= 0 && origin + 16 <= 63 && board[origin + 16].piece === '' && !board[origin].hasMoved ) legalMoves.push({ move: origin + 16, pieceTaken: origin + 16 }) // first move twice
+        if ( board[origin + 8].pieceColor !== 'black' && origin + 8 >= 0 && origin + 8 <= 63 && board[origin + 8].piece === '' ) legalMoves.push({ move: origin + 8, pieceTaken: origin + 8 }) // move once
+        if ( board[origin + 7].pieceColor !== 'black' && origin + 7 >= 0 && origin + 7 <= 63 && board[origin + 7].piece !== '' ) legalMoves.push({ move: origin + 7, pieceTaken: origin + 7 }) // take left
+        if ( board[origin + 9].pieceColor !== 'black' && origin + 9 >= 0 && origin + 9 <= 63 && board[origin + 9].piece !== '' ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 9 }) // take right
+        if ( board[origin - 1].pieceColor !== 'black' && origin - 1 >= 0 && origin - 1 <= 63 && board[origin - 1].piece === 'p' && board[origin - 1].rank === board[origin].rank && board[origin - 1].pawnJustMovedTwice ) legalMoves.push({ move: origin + 7, pieceTaken: origin - 1 });
+        if ( board[origin + 1].pieceColor !== 'black' && origin + 1 >= 0 && origin + 1 <= 63 && board[origin + 1].piece === 'p' && board[origin + 1].rank === board[origin].rank && board[origin + 1].pawnJustMovedTwice ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 1 });
     }
 
     return legalMoves;
 }
 
-// TODO: stop king and other pieces from putting the king in check
 function king (board, origin) {
     let legalMoves = [];
 
