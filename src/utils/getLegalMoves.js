@@ -1,6 +1,6 @@
 import move from "./move";
 
-/***
+/**
  * @param {array} board The chess board
  * @param {integer} origin The position of the piece 0-63
  */
@@ -11,8 +11,9 @@ export default function getLegalMoves (board, origin) {
     if ( board[origin].piece === 'b' || board[origin].piece === 'q') legalMoves = legalMoves.concat(bishop(board, origin));
     if ( board[origin].piece === 'n' ) legalMoves = legalMoves.concat(knight(board, origin));
     if ( board[origin].piece === 'p' ) legalMoves = legalMoves.concat(pawn(board, origin));
-    if ( board[origin].piece === 'k') legalMoves = legalMoves.concat(king(board, origin))
-    
+    if ( board[origin].piece === 'k' ) legalMoves = legalMoves.concat(king(board, origin));
+    if ( board[origin].piece === 'k' ) legalMoves = legalMoves.concat(castling(board, origin));
+
     const moves = legalMoves.map((move) => move.move);
     const piecesTaken = legalMoves.map((move) => move.pieceTaken);
     let finalLegalMoves = [];
@@ -31,6 +32,7 @@ export default function getLegalMoves (board, origin) {
                 if ( tmpBoard[squareIndex].piece === 'n' ) legalResponses = legalResponses.concat(knight(tmpBoard, Number(squareIndex)));
                 if ( tmpBoard[squareIndex].piece === 'p' ) legalResponses = legalResponses.concat(pawn(tmpBoard, Number(squareIndex)));
                 if ( tmpBoard[squareIndex].piece === 'k' ) legalResponses = legalResponses.concat(king(tmpBoard, Number(squareIndex)));
+                // castling not needed for calculation (because of the rules idiot)
 
                 for ( const responseIndex in legalResponses ) {
                     if ( tmpBoard[legalResponses[responseIndex].move].piece === 'k' ) {
@@ -43,8 +45,6 @@ export default function getLegalMoves (board, origin) {
         if ( !kingTaken ) finalLegalMoves.push(moves[moveIndex]);
         if ( !kingTaken ) finalLegalPiecesTaken.push(piecesTaken[moveIndex])
     }
-
-    console.log(finalLegalMoves)
 
     return { moves: finalLegalMoves, piecesTaken: finalLegalPiecesTaken };
 }
@@ -190,6 +190,39 @@ function king (board, origin) {
     if ( origin + 7 >= 0 && origin + 7 <= 63 && board[origin + 7].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 7, pieceTaken: origin + 7 });
     if ( origin + 8 >= 0 && origin + 8 <= 63 && board[origin + 8].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 8, pieceTaken: origin + 8 });
     if ( origin + 9 >= 0 && origin + 9 <= 63 && board[origin + 9].pieceColor !== board[origin].pieceColor ) legalMoves.push({ move: origin + 9, pieceTaken: origin + 9 });
+    
+    return legalMoves;
+}
+
+function castling (board, origin) {
+    let legalMoves = [];
+    let attacked = [];
+
+    // if castling left or right is pseudo-legal
+    if ( ( origin - 4 <= 63 && origin - 4 >= 0 && board[origin].piece === 'k' && !board[origin].hasMoved && board[origin - 4].piece === 'r' && !board[origin - 4].hasMoved && board[origin - 4].pieceColor === board[origin].pieceColor ) || ( origin + 3 <= 63 && origin + 3 >= 0 && board[origin].piece === 'k' && !board[origin].hasMoved && board[origin + 3].piece === 'r' && !board[origin + 3].hasMoved && board[origin + 3].pieceColor === board[origin].pieceColor )) {
+        for ( const squareIndex in board ) {
+            if ( board[squareIndex].piece !== '' && board[squareIndex].pieceColor !== board[origin].pieceColor) {
+                if ( board[squareIndex].piece === 'r' || board[squareIndex].piece === 'q') attacked = attacked.concat(rook(board, Number(squareIndex)));
+                if ( board[squareIndex].piece === 'b' || board[squareIndex].piece === 'q') attacked = attacked.concat(bishop(board, Number(squareIndex)));
+                if ( board[squareIndex].piece === 'n' ) attacked = attacked.concat(knight(board, Number(squareIndex)));
+                if ( board[squareIndex].piece === 'p' ) attacked = attacked.concat(pawn(board, Number(squareIndex)));
+                if ( board[squareIndex].piece === 'k' ) attacked = attacked.concat(king(board, Number(squareIndex)));
+            }
+        }
+    }
+
+    attacked = attacked.map((move) => move.pieceTaken)
+
+    // origin - 4: castling to the left
+    if ( origin - 4 <= 63 && origin - 4 >= 0 && board[origin].piece === 'k' && !board[origin].hasMoved && board[origin - 4].piece === 'r' && !board[origin - 4].hasMoved && board[origin - 4].pieceColor === board[origin].pieceColor && !attacked.includes(origin) && !attacked.includes(origin - 1) && !attacked.includes(origin - 2) && board[origin - 1].piece === '' && board[origin - 2].piece === '' ) {
+        legalMoves.push({ move: origin - 2, pieceTaken: origin - 2 })
+    }
+
+    // origin + 3: castling to the right
+    // something about this is messing things up
+    if ( origin + 3 <= 63 && origin + 3 >= 0 && board[origin].piece === 'k' && !board[origin].hasMoved && board[origin + 3].piece === 'r' && !board[origin + 3].hasMoved && board[origin + 3].pieceColor === board[origin].pieceColor && !attacked.includes(origin) && !attacked.includes(origin + 1) && !attacked.includes(origin + 2) && board[origin + 1].piece === '' && board[origin + 2].piece === '' ) { 
+        legalMoves.push({ move: origin + 2, pieceTaken: origin + 2 })
+    }
 
     return legalMoves;
 }

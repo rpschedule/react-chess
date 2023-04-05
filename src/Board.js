@@ -7,24 +7,47 @@ import getLegalMoves from "./utils/getLegalMoves.js";
 
 /**
  * Creates a chess board
+ * @param {string} fen The starting position
+ * @param {string} color Which color should be displayed at the bottom
+ * @param {boolean} online Whether or not the game is online
  * @returns {JSX} Board - Div with class "Board" containing 64 Square elements
  */
-export default function Board ({ fen }) {
+export default function Board({ fen, color, online }) {
+    fen = fen || 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0';
+    color = color || 'white';
+    online = online || false;
     const [prevMove, setPrevMove] = useState(-1);
-    const [board, setBoard] = useState( loadFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0') );
-    const [turn, setTurn] = useState( true ) // true: white, false: black
+    const [board, setBoard] = useState(loadFen(fen));
+    const [turn, setTurn] = useState(true); // true: white, false: black
 
-    function handleClick (square) {
+    function handleClick(square) {
         // if is first click and square is empty, return
-        if (  prevMove === -1 && board[square].piece === '' ) return;
+        if (prevMove === -1 && board[square].piece === '') return;
 
-        // if is first click and it's the right color
-        if ( prevMove === -1 && board[square].pieceColor === (turn ? 'white' : 'black') ) {
+        // whether or not the player should be able to move the piece they've selected
+        const canMovePiece = online ?
+            ( // if online 
+                color === board[square].pieceColor && // is the correct color
+                board[square].pieceColor === (turn ? 'white' : 'black') // is the player's turn
+            )
+            :
+            (  // if offline
+                board[square].pieceColor === (turn ? 'white' : 'black') // is the player's turn
+            )
+
+        if (prevMove === -1 && canMovePiece) { 
             setPrevMove(square);
-        } else {
+        } else if (prevMove !== -1) {
             const legalMoves = getLegalMoves(board, prevMove);
-            if ( legalMoves.moves.includes(square) ) {
-                setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
+            console.log(legalMoves.moves)
+            if (legalMoves.moves.includes(square)) {
+                if ( board[prevMove].piece === 'k' && ( square === prevMove - 2 || square === prevMove + 2 ) ) {
+                    const rookOrigin = Math.sign(square - prevMove) > 0 ? prevMove + 3 : prevMove - 4;
+                    const rookDestination = prevMove + Math.sign(square - prevMove);
+                    setBoard(move(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]), rookOrigin, rookDestination, rookDestination));
+                } else {
+                    setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
+                }
                 setTurn(!turn);
             }
             setPrevMove(-1);
@@ -32,16 +55,16 @@ export default function Board ({ fen }) {
     }
 
 
-    return ( renderBoard(board, handleClick) );
+    return (renderBoard(board, handleClick));
 }
 
 /***
  * Maps board array to Squares
  */
-function renderBoard (board, handleClick) {
+function renderBoard(board, handleClick) {
     const boardRendered = board.map((square, index) =>
-        <Square key={index} square={square} index={index} clickHandler={handleClick}/>
-    );    
+        <Square key={index} square={square} index={index} clickHandler={handleClick} />
+    );
 
     return (
         <div className="Board">

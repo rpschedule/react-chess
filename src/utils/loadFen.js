@@ -1,4 +1,4 @@
-/***
+/**
  * Converts a FEN string to an array of pieces
  * @returns {Array} board - 64 entry array of pieces
  * @param {string} fen - The FEN string to load

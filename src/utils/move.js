@@ -1,4 +1,4 @@
-/***
+/**
  * Move a piece to a destination
  * @param {array} board - The board
  * @param {number} origin - The index of the piece to move

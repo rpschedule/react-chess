@@ -8,6 +8,7 @@
 - [X] Add moving
 - [X] Alternate turns
 - [X] Check for legal moves
+- [ ] Add castling
 - [ ] Add playing as black
 - [ ] Add checkmate detection
 - [ ] Add multiplayer functionality

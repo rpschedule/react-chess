@@ -4,7 +4,7 @@ import Board from './Board';
 function App() {
   return (
     <>
-      <Board columns="8" rows="8"/>
+      <Board fen="rnbqk2r/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R w KQkq - 0 1"/>
     </>
   );
 }
