@@ -1,0 +1,19 @@
+@import './index.css';
+
+.PromoPopup {
+    position: absolute;
+    top: var(--square-size);
+
+    width: calc(var(--square-size) - 10px);
+    height: auto;
+    display: inline-grid;
+    grid-template-columns: auto;
+    background: #181f25;
+    border: solid 3px #181f25;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+.PromoPopup img {
+    width: calc(var(--square-size) - 15px);
+}

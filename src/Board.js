@@ -4,6 +4,7 @@ import loadFen from "./utils/loadFen.js";
 import move from './utils/move.js'
 import { useState } from 'react';
 import getLegalMoves from "./utils/getLegalMoves.js";
+import PromoPopup from "./PromoPopup.js";
 
 /**
  * Creates a chess board
@@ -19,9 +20,11 @@ export default function Board({ fen, color, online }) {
     const [prevMove, setPrevMove] = useState(-1);
     const [board, setBoard] = useState(loadFen(fen));
     const [turn, setTurn] = useState(true); // true: white, false: black
+    const [popUp, setPopUp] = useState('')
 
-    function handleClick(square) {
+    function handleSquareClick(square) {
         // if is first click and square is empty, return
+        if ( popUp !== '') return;
         if (prevMove === -1 && board[square].piece === '') return;
 
         // whether or not the player should be able to move the piece they've selected
@@ -39,15 +42,19 @@ export default function Board({ fen, color, online }) {
             setPrevMove(square);
         } else if (prevMove !== -1) {
             const legalMoves = getLegalMoves(board, prevMove);
-            console.log(legalMoves.moves)
+
             if (legalMoves.moves.includes(square)) {
+                // castling (either direction)
                 if ( board[prevMove].piece === 'k' && ( square === prevMove - 2 || square === prevMove + 2 ) ) {
                     const rookOrigin = Math.sign(square - prevMove) > 0 ? prevMove + 3 : prevMove - 4;
                     const rookDestination = prevMove + Math.sign(square - prevMove);
                     setBoard(move(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]), rookOrigin, rookDestination, rookDestination));
-                } else {
+                } else if (board[prevMove].piece === 'p' && ( board[square].rank === 1 || board[square].rank === 8)) {
+                    setPopUp(<PromoPopup board={board} origin={prevMove} destination={square}/>)
+                } else { // anything thats not castling
                     setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
                 }
+
                 setTurn(!turn);
             }
             setPrevMove(-1);
@@ -55,7 +62,10 @@ export default function Board({ fen, color, online }) {
     }
 
 
-    return (renderBoard(board, handleClick));
+    return (<>
+        {renderBoard(board, handleSquareClick)}
+        {popUp}
+    </>)
 }
 
 /***

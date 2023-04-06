@@ -7,10 +7,7 @@ export default function loadFen (fen) {
     let out = Array(64).fill({}).map((square, index) => {
         // if it's an odd row, offset index by 1
         const offset = Math.floor(index / 8) % 2;
-        
-        let color;
-        if ( (index + offset) % 2 === 0 ) color = 'white';
-        else color = 'black';
+        const color = (index + offset) % 2 === 0 ? 'white' : 'black';
         
         return {
             piece: '',

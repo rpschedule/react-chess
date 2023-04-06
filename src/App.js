@@ -3,9 +3,9 @@ import Board from './Board';
 
 function App() {
   return (
-    <>
-      <Board fen="rnbqk2r/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R w KQkq - 0 1"/>
-    </>
+    <div className='Main'>
+      <Board fen='rnbqkbnr/ppppppPp/8/8/8/8/PPPPPP1P/RNBQKBNR w KQkq - 0 1'/>
+    </div>
   );
 }
 
