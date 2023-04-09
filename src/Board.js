@@ -5,6 +5,7 @@ import move from './utils/move.js'
 import { useState } from 'react';
 import getLegalMoves from "./utils/getLegalMoves.js";
 import PromoPopup from "./PromoPopup.js";
+import { typeImplementation } from "@testing-library/user-event/dist/type/typeImplementation.js";
 
 /**
  * Creates a chess board
@@ -24,7 +25,7 @@ export default function Board({ fen, color, online }) {
 
     function handleSquareClick(square) {
         // if is first click and square is empty, return
-        if ( popUp !== '') return;
+        if (popUp !== '') return;
         if (prevMove === -1 && board[square].piece === '') return;
 
         // whether or not the player should be able to move the piece they've selected
@@ -50,8 +51,8 @@ export default function Board({ fen, color, online }) {
                     const rookDestination = prevMove + Math.sign(square - prevMove);
                     setBoard(move(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]), rookOrigin, rookDestination, rookDestination));
                 } else if (board[prevMove].piece === 'p' && ( board[square].rank === 1 || board[square].rank === 8)) {
-                    setPopUp(<PromoPopup board={board} origin={prevMove} destination={square}/>)
-                } else { // anything thats not castling
+                    setPopUp(<PromoPopup board={board} origin={prevMove} destination={square} onclick={handlePromotion}/>)
+                } else { // anything thats not castling/promoting
                     setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
                 }
 
@@ -59,6 +60,24 @@ export default function Board({ fen, color, online }) {
             }
             setPrevMove(-1);
         }
+    }
+
+    function handlePromotion (pieceSelected, origin, destination) {
+        const tmpBoard = structuredClone(board)
+        tmpBoard[origin] = Object.assign(tmpBoard[origin], {
+            piece: '',
+            pieceColor: '',
+            hasMoved: false,
+        })
+
+        tmpBoard[destination] = Object.assign(tmpBoard[destination], {
+            piece: pieceSelected,
+            pieceColor: board[origin].pieceColor,
+            hasMoved: false,
+        })
+
+        setBoard(tmpBoard)
+        setPopUp('')
     }
 
 
