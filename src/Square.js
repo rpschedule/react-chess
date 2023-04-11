@@ -37,7 +37,7 @@ export default function Square({ square, index, clickHandler }) {
     const content = (square.piece !== '') && <img src={images[pieceIndex]} alt={square.piece} className="Piece" />;
 
     return (
-        <div className={`Square ${square.squareColor}`} onClick={() => clickHandler(index)}>
+        <div className={`Square ${square.squareColor}${square.highlighted ? ' Highlighted' : ''}`} onClick={() => clickHandler(index)}>
             {content}
         </div>
     )

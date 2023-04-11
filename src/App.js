@@ -4,7 +4,7 @@ import Board from './Board';
 function App() {
   return (
     <div className='Main'>
-      <Board fen='rnbqkbnr/ppppppPp/8/8/8/8/PPPPPP1P/RNBQKBNR w KQkq - 0 1'/>
+      <Board fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 0'/>
     </div>
   );
 }

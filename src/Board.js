@@ -5,7 +5,8 @@ import move from './utils/move.js'
 import { useState } from 'react';
 import getLegalMoves from "./utils/getLegalMoves.js";
 import PromoPopup from "./PromoPopup.js";
-import { typeImplementation } from "@testing-library/user-event/dist/type/typeImplementation.js";
+import highlightLegalMoves from "./utils/highlightLegalMoves.js";
+import removeHighlights from "./utils/removeHighlights.js";
 
 /**
  * Creates a chess board
@@ -41,6 +42,7 @@ export default function Board({ fen, color, online }) {
 
         if (prevMove === -1 && canMovePiece) { 
             setPrevMove(square);
+            setBoard(highlightLegalMoves(board))
         } else if (prevMove !== -1) {
             const legalMoves = getLegalMoves(board, prevMove);
 
@@ -49,7 +51,14 @@ export default function Board({ fen, color, online }) {
                 if ( board[prevMove].piece === 'k' && ( square === prevMove - 2 || square === prevMove + 2 ) ) {
                     const rookOrigin = Math.sign(square - prevMove) > 0 ? prevMove + 3 : prevMove - 4;
                     const rookDestination = prevMove + Math.sign(square - prevMove);
-                    setBoard(move(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]), rookOrigin, rookDestination, rookDestination));
+                    setBoard(
+                        removeHighlights(
+                            move(
+                                move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]),
+                                rookOrigin, rookDestination, rookDestination
+                            )
+                        )
+                    );
                 } else if (board[prevMove].piece === 'p' && ( board[square].rank === 1 || board[square].rank === 8)) {
                     setPopUp(<PromoPopup board={board} origin={prevMove} destination={square} onclick={handlePromotion}/>)
                 } else { // anything thats not castling/promoting
