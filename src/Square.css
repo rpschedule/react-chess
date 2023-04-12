@@ -6,16 +6,16 @@
 }
 
 .white {
-    background: var(--square-white);
-    color: var(--square-black);
+    background: rgb(var(--square-white));
+    color: rgb(var(--square-black));
 }
 
 .black {
-    background: var(--square-black);
-    color: var(--square-white);
+    background: rgb(var(--square-black));
+    color: rgb(var(--square-white));
 }
 
-.Piece {
+.piece {
     width: 100%;
     height: 100%;
 }

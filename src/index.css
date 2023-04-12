@@ -1,6 +1,6 @@
 :root {
-  --square-white: #eeeeee;
-  --square-black: green;
+  --square-white: 238, 238, 238;
+  --square-black: 0, 128, 0;
   --square-size: 90px;
 }
 

@@ -42,7 +42,7 @@ export default function Board({ fen, color, online }) {
 
         if (prevMove === -1 && canMovePiece) { 
             setPrevMove(square);
-            setBoard(highlightLegalMoves(board))
+            setBoard(highlightLegalMoves(board, square))
         } else if (prevMove !== -1) {
             const legalMoves = getLegalMoves(board, prevMove);
 

@@ -34,11 +34,11 @@ export default function Square({ square, index, clickHandler }) {
         pieceIndex = 11;
     }
 
-    const content = (square.piece !== '') && <img src={images[pieceIndex]} alt={square.piece} className="Piece" />;
+    const content = (square.piece !== '') && <img src={images[pieceIndex]} alt={square.piece} className="piece" />;
 
     return (
-        <div className={`Square ${square.squareColor}${square.highlighted ? ' Highlighted' : ''}`} onClick={() => clickHandler(index)}>
-            {content}
+        <div className={`Square ${square.squareColor}${square.highlighted ? ' highlighted' : ''}`} onClick={() => clickHandler(index)}>
+            {content + (square.highlighted) ? <div className='highlighted'></div> : '' }
         </div>
     )
 }
