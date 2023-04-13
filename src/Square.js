@@ -1,5 +1,6 @@
 import './Square.css'
-const images = importAll(require.context('./pieces/', true, /\.(png|jpe?g|svg)$/));
+import highlightedImage from './images/highlight.png'
+const images = importAll(require.context('./images/pieces/', true, /\.(png|jpe?g|svg)$/));
 
 function importAll(r) {
     return r.keys().map(r);
@@ -37,8 +38,9 @@ export default function Square({ square, index, clickHandler }) {
     const content = (square.piece !== '') && <img src={images[pieceIndex]} alt={square.piece} className="piece" />;
 
     return (
-        <div className={`Square ${square.squareColor}${square.highlighted ? ' highlighted' : ''}`} onClick={() => clickHandler(index)}>
-            {content + (square.highlighted) ? <div className='highlighted'></div> : '' }
+        <div className={`Square ${square.squareColor}`} onClick={() => clickHandler(index)}>
+            {content} 
+            {(square.highlighted) ? <img src={highlightedImage} alt='Highlighted' className='highlighted'/> : ''}
         </div>
     )
 }
