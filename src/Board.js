@@ -62,7 +62,11 @@ export default function Board({ fen, color, online }) {
                 } else if (board[prevMove].piece === 'p' && ( board[square].rank === 1 || board[square].rank === 8)) {
                     setPopUp(<PromoPopup board={board} origin={prevMove} destination={square} onclick={handlePromotion}/>)
                 } else { // anything thats not castling/promoting
-                    setBoard(move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)]));
+                    setBoard(
+                        removeHighlights(
+                            move(board, prevMove, square, legalMoves.piecesTaken[legalMoves.moves.indexOf(square)])
+                        )
+                    );
                 }
 
                 setTurn(!turn);
@@ -85,7 +89,7 @@ export default function Board({ fen, color, online }) {
             hasMoved: false,
         })
 
-        setBoard(tmpBoard)
+        setBoard(removeHighlights(tmpBoard))
         setPopUp('')
     }
 
