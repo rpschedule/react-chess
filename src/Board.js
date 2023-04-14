@@ -70,8 +70,11 @@ export default function Board({ fen, color, online }) {
                 }
 
                 setTurn(!turn);
+            } else {
+                setBoard(removeHighlights(board))
             }
             setPrevMove(-1);
+
         }
     }
 
