@@ -3,6 +3,7 @@
 .Square {
     width: var(--square-size);
     height: var(--square-size);
+    position: relative;
 }
 
 .white {
@@ -20,6 +21,12 @@
     height: 100%;
 }
 
+.highlight {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
 .highlighted {
     width: 100%;
     height: 100%;
@@ -28,11 +35,6 @@
 }
 
 .highlightedCapture {
-    position: absolute;
-    top: 0px;
-    left: 0px;
     width: 100%;
     height: 100%;
-    margin: 0px;
-    padding: 0px;
 }

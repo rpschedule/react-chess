@@ -41,8 +41,14 @@ export default function Square({ square, index, clickHandler }) {
     return (
         <div className={`Square ${square.squareColor}`} onClick={() => clickHandler(index)}>
             {content} 
-            {(square.highlighted === 1) ? <img src={highlightedImage} alt='Highlighted' className='highlighted'/> : ''}
-            {(square.highlighted === 2) ? <img src={highlightedCaptureImage} alt='Highlighted Capture' className='highlightedCapture'/> : ''}
+            <div className='highlight'>
+                {(square.highlighted === 1) ?
+                    <img src={highlightedImage} alt='Highlighted' className='highlighted'/> :
+                    (square.highlighted === 2) ?
+                        <img src={highlightedCaptureImage} alt='Highlighted Capture' className='highlightedCapture'/> :
+                        ''
+                }
+            </div>
         </div>
     )
 }
