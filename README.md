@@ -8,8 +8,10 @@
 - [X] Add moving
 - [X] Alternate turns
 - [X] Check for legal moves
-- [ ] Add castling
-- [ ] Add playing as black
+- [X] Add castling
+- [X] Add playing as black
+- [X] Add move highlighting
+- [ ] Add dragging functionality
 - [ ] Add checkmate detection
 - [ ] Add multiplayer functionality
 - [ ] Create server and deploy
@@ -17,8 +19,8 @@
 - [ ] Add personalization (maybe behind a mild paywall to fund server)
 
 ### REWORK
-- [ ] Change while loop into for loop in loadFen.js
 - [ ] Add optional prop to change starting fen
 
 ### SPECIFIC
 - [X] Add check to first double move to make sure pawn doesn't jump over pieces
+- [ ] Change while loop into for loop in loadFen.js
