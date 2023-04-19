@@ -1,11 +1,13 @@
-import Square from "./Square.js";
+import { useState } from 'react';
+
 import './Board.css';
+import PromoPopup from "./PromoPopup.js";
+import Square from "./Square.js";
+
+import getLegalMoves from "./utils/getLegalMoves.js";
+import highlightLegalMoves from "./utils/highlightLegalMoves.js";
 import loadFen from "./utils/loadFen.js";
 import move from './utils/move.js'
-import { useState } from 'react';
-import getLegalMoves from "./utils/getLegalMoves.js";
-import PromoPopup from "./PromoPopup.js";
-import highlightLegalMoves from "./utils/highlightLegalMoves.js";
 import removeHighlights from "./utils/removeHighlights.js";
 
 /**
