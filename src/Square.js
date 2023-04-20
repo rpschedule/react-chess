@@ -7,7 +7,7 @@ import highlightedCaptureImage from './images/highlighted_capture.png'
 export default function Square({ square, index, clickHandler }) {
     return (
         <div className={`Square ${square.squareColor}`} onClick={() => clickHandler(index)}>
-            <Piece square="square" />
+            <Piece square={square} />
             <div className='highlight'>
                 {(square.highlighted === 1) ?
                     <img src={highlightedImage} alt='Highlighted' className='highlighted'/> :
