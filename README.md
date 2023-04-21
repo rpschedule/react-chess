@@ -18,9 +18,8 @@
 - [ ] Add accounts/google auth
 - [ ] Add personalization (maybe behind a mild paywall to fund server)
 
-### REWORK
-- [ ] Add optional prop to change starting fen
-
 ### SPECIFIC
 - [X] Add check to first double move to make sure pawn doesn't jump over pieces
 - [ ] Change while loop into for loop in loadFen.js
+- [ ] Redo images declaration in Piece.js
+- [ ] Add optional prop to change starting fen
