@@ -32,7 +32,7 @@ export default function Piece ({ square, draggingHandler }) {
 
     const [{isDragging}, drag, preview] = useDrag(() => ({
         type: 'piece',
-        item: { id: square.index },
+        item: { index: square.index },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),

@@ -9,7 +9,7 @@ import highlightedCaptureImage from './images/highlighted_capture.png'
 export default function Square({ square, clickHandler, draggingHandler, dropHandler }) {
     const [{isOver, item}, drop] = useDrop(() => ({
         accept: 'piece',
-        drop: () => dropHandler(square.index, item),
+        drop: (item, monitor) => dropHandler(square.index, item.index),
         collect: monitor => ({
             isOver: !!monitor.isOver(),
             item: monitor.getItem()

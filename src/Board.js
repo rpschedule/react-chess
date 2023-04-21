@@ -118,8 +118,8 @@ function dropHandler (index, origin) {
     // unhighlight squares when dragging ends
     // move the piece to the destination (if it's legal ofc)
 
-    console.log('index', index)
-    console.log('origin', origin)
+    alert(index)
+    alert(origin)
 }
 
 /***
