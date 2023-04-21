@@ -23,3 +23,4 @@
 - [ ] Change while loop into for loop in loadFen.js
 - [ ] Redo images declaration in Piece.js
 - [ ] Add optional prop to change starting fen
+- [ ] Fix bugs in when legal moves are highlighted
