@@ -110,12 +110,24 @@ export default function Board({ fen, color, online }) {
     </>)
 }
 
+function draggingHandler (index) {
+    // setboard to highlight the available squares
+}
+
+function dropHandler (index, origin) {
+    // unhighlight squares when dragging ends
+    // move the piece to the destination (if it's legal ofc)
+
+    console.log('index', index)
+    console.log('origin', origin)
+}
+
 /***
  * Maps board array to Squares
  */
 function renderBoard(board, handleClick) {
     const boardRendered = board.map((square, index) =>
-        <Square key={index} square={square} index={index} clickHandler={handleClick} />
+        <Square key={index} square={square} index={index} clickHandler={handleClick} draggingHandler={draggingHandler} dropHandler={dropHandler} />
     );
 
     return (

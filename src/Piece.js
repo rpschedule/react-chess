@@ -15,7 +15,7 @@ import whiteb from './images/pieces/white/B.png'
 import whitep from './images/pieces/white/P.png'
 import whitek from './images/pieces/white/K.png'
 
-export default function Piece ({ square }) {
+export default function Piece ({ square, draggingHandler }) {
     const image = (square.piece === 'b' && square.pieceColor === 'black') ? blackb 
         : (square.piece === 'k' && square.pieceColor === 'black') ? blackk
         : (square.piece === 'n' && square.pieceColor === 'black') ? blackn
@@ -32,11 +32,13 @@ export default function Piece ({ square }) {
 
     const [{isDragging}, drag, preview] = useDrag(() => ({
         type: 'piece',
-        e: square.piece,
+        item: { id: square.index },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
     }))
+
+    if ( isDragging ) draggingHandler(square.index)
 
     return (
         
