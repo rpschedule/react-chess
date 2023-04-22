@@ -44,7 +44,7 @@ export default function Board({ fen, color, online }) {
                 board[square].pieceColor === (turn ? 'white' : 'black') // is the player's turn
             )
 
-        if (prevMove === -1 && canMovePiece) { 
+        if (prevMove === -1 && canMovePiece) {
             setPrevMove(square);
             setBoard(highlightLegalMoves(board, square))
         } else if (prevMove !== -1) {
@@ -52,7 +52,7 @@ export default function Board({ fen, color, online }) {
 
             if (legalMoves.moves.includes(square)) {
                 // castling (either direction)
-                if ( board[prevMove].piece === 'k' && ( square === prevMove - 2 || square === prevMove + 2 ) ) {
+                if (board[prevMove].piece === 'k' && (square === prevMove - 2 || square === prevMove + 2)) {
                     const rookOrigin = Math.sign(square - prevMove) > 0 ? prevMove + 3 : prevMove - 4;
                     const rookDestination = prevMove + Math.sign(square - prevMove);
                     setBoard(
@@ -63,8 +63,8 @@ export default function Board({ fen, color, online }) {
                             )
                         )
                     );
-                } else if (board[prevMove].pece === 'p' && ( board[square].rank === 1 || board[square].rank === 8)) {
-                    setPopUp(<PromoPopup board={board} origin={prevMove} destination={square} onclick={handlePromotion}/>)
+                } else if (board[prevMove].pece === 'p' && (board[square].rank === 1 || board[square].rank === 8)) {
+                    setPopUp(<PromoPopup board={board} origin={prevMove} destination={square} onclick={handlePromotion} />)
                 } else { // anything thats not castling/promoting
                     setBoard(
                         removeHighlights(
@@ -85,7 +85,7 @@ export default function Board({ fen, color, online }) {
         }
     }
 
-    function handlePromotion (pieceSelected, origin, destination) {
+    function handlePromotion(pieceSelected, origin, destination) {
         const tmpBoard = structuredClone(board)
         tmpBoard[origin] = Object.assign(tmpBoard[origin], {
             piece: '',
@@ -103,38 +103,57 @@ export default function Board({ fen, color, online }) {
         setPopUp('')
     }
 
+    function dropHandler(index, origin) {
+        // unhighlight squares when dragging ends
+        // move the piece to the destination (if it's legal ofc)
+
+        const legalMoves = getLegalMoves(board, origin);
+
+        if (legalMoves.moves.includes(index)) {
+            // castling (either direction)
+            if (board[origin].piece === 'k' && (index === origin - 2 || index === origin + 2)) {
+                const rookOrigin = Math.sign(index - origin) > 0 ? origin + 3 : origin - 4;
+                const rookDestination = origin + Math.sign(index - origin);
+                setBoard(
+                    move(
+                        move(board, origin, index, legalMoves.piecesTaken[legalMoves.moves.indexOf(index)]),
+                        rookOrigin, rookDestination, rookDestination
+                    )
+                );
+            } else if (board[origin].pece === 'p' && (board[index].rank === 1 || board[index].rank === 8)) {
+                setPopUp(<PromoPopup board={board} origin={origin} destination={index} onclick={handlePromotion} />)
+            } else { // anything thats not castling/promoting
+                setBoard(
+                        move(board, origin, index, legalMoves.piecesTaken[legalMoves.moves.indexOf(index)])
+                );
+            }
+
+            setTurn(!turn);
+        }
+
+        console.log(origin, index)
+    }
+
+    function draggingHandler(index) {
+        // setboard to highlight the available squares
+    }
+
+    function renderBoard(board, handleClick) {
+        const boardRendered = board.map((square, index) =>
+            <Square key={index} square={square} index={index} clickHandler={handleClick} draggingHandler={draggingHandler} dropHandler={dropHandler} />
+        );
+    
+        return (
+            <DndProvider backend={HTML5Backend}>
+                <div className="Board">
+                    {boardRendered}
+                </div>
+            </DndProvider>
+        );
+    }
 
     return (<>
         {renderBoard(board, handleSquareClick)}
         {popUp}
     </>)
-}
-
-function draggingHandler (index) {
-    // setboard to highlight the available squares
-}
-
-function dropHandler (index, origin) {
-    // unhighlight squares when dragging ends
-    // move the piece to the destination (if it's legal ofc)
-
-    alert(index)
-    alert(origin)
-}
-
-/***
- * Maps board array to Squares
- */
-function renderBoard(board, handleClick) {
-    const boardRendered = board.map((square, index) =>
-        <Square key={index} square={square} index={index} clickHandler={handleClick} draggingHandler={draggingHandler} dropHandler={dropHandler} />
-    );
-
-    return (
-        <DndProvider backend={HTML5Backend}>
-            <div className="Board">
-                {boardRendered}
-            </div>
-        </DndProvider>
-    );
 }
