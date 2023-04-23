@@ -6,7 +6,7 @@ import './Square.css'
 import highlightedImage from './images/highlight.png'
 import highlightedCaptureImage from './images/highlighted_capture.png'
 
-export default function Square({ square, clickHandler, draggingHandler, dropHandler }) {
+export default function Square({ square, clickHandler, onDragStart, onDragEnd, dropHandler }) {
     const [{isOver, item}, drop] = useDrop(() => ({
         accept: 'piece',
         drop: (item, monitor) => dropHandler(square.index, item.index),
@@ -18,7 +18,7 @@ export default function Square({ square, clickHandler, draggingHandler, dropHand
 
     return (
         <div ref={drop} className={`Square ${square.squareColor}`} onClick={() => clickHandler(square.index)}>
-            <Piece square={square} draggingHandler={draggingHandler}/>
+            <Piece square={square} onDragStart={onDragStart}/>
             <div className='highlight'>
                 {(square.highlighted === 1) ?
                     <img src={highlightedImage} alt='Highlighted' className='highlighted'/> :

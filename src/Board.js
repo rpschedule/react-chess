@@ -63,7 +63,7 @@ export default function Board({ fen, color, online }) {
                             )
                         )
                     );
-                } else if (board[prevMove].pece === 'p' && (board[square].rank === 1 || board[square].rank === 8)) {
+                } else if (board[prevMove].piece === 'p' && (board[square].rank === 1 || board[square].rank === 8)) {
                     setPopUp(<PromoPopup board={board} origin={prevMove} destination={square} onclick={handlePromotion} />)
                 } else { // anything thats not castling/promoting
                     setBoard(
@@ -76,7 +76,7 @@ export default function Board({ fen, color, online }) {
                 setTurn(!turn);
             } else if (board[square].pieceColor === board[prevMove].pieceColor) {
                 setPrevMove(square);
-                setBoard(highlightLegalMoves(removeHighlights(board)));
+                setBoard(highlightLegalMoves(removeHighlights(board), square));
             } else {
                 setBoard(removeHighlights(board))
             }
@@ -104,12 +104,24 @@ export default function Board({ fen, color, online }) {
     }
 
     function dropHandler(index, origin) {
-        // unhighlight squares when dragging ends
         // move the piece to the destination (if it's legal ofc)
 
         const legalMoves = getLegalMoves(board, origin);
+        const canMove = online ?
+            ( // if online 
+                color === board[origin].pieceColor && // is the correct color
+                board[origin].pieceColor === (turn ? 'white' : 'black') // is the player's turn
+            )
+            :
+            (  // if offline
+                board[origin].pieceColor === (turn ? 'white' : 'black') // is the player's turn
+            )
 
-        if (legalMoves.moves.includes(index)) {
+        console.log(board[origin].pieceColor)
+        console.log(turn)
+
+        if (legalMoves.moves.includes(index) && canMove) {
+            console.log("sldkjfalksjdf")
             // castling (either direction)
             if (board[origin].piece === 'k' && (index === origin - 2 || index === origin + 2)) {
                 const rookOrigin = Math.sign(index - origin) > 0 ? origin + 3 : origin - 4;
@@ -120,27 +132,29 @@ export default function Board({ fen, color, online }) {
                         rookOrigin, rookDestination, rookDestination
                     )
                 );
-            } else if (board[origin].pece === 'p' && (board[index].rank === 1 || board[index].rank === 8)) {
+            } else if (board[origin].piece === 'p' && (board[index].rank === 1 || board[index].rank === 8)) {
                 setPopUp(<PromoPopup board={board} origin={origin} destination={index} onclick={handlePromotion} />)
             } else { // anything thats not castling/promoting
                 setBoard(
-                        move(board, origin, index, legalMoves.piecesTaken[legalMoves.moves.indexOf(index)])
+                    move(board, origin, index, legalMoves.piecesTaken[legalMoves.moves.indexOf(index)])
                 );
             }
 
             setTurn(!turn);
         }
-
-        console.log(origin, index)
     }
 
-    function draggingHandler(index) {
+    function onDragEnd(item, monitor) {
+        setBoard(removeHighlights(board))
+    }
+
+    function onDragStart(index) {
         // setboard to highlight the available squares
     }
 
     function renderBoard(board, handleClick) {
         const boardRendered = board.map((square, index) =>
-            <Square key={index} square={square} index={index} clickHandler={handleClick} draggingHandler={draggingHandler} dropHandler={dropHandler} />
+            <Square key={index} square={square} index={index} clickHandler={handleClick} onDragStart={onDragStart} dropHandler={dropHandler} onDragEnd={onDragEnd}/>
         );
     
         return (
