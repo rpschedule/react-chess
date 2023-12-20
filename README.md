@@ -1,26 +1,5 @@
-## TODO 
----
+# React Chess
+Chess written with the React framework
 
-### GENERAL
-- [X] Create board
-- [X] Add pieces
-- [X] Add FEN loading
-- [X] Add moving
-- [X] Alternate turns
-- [X] Check for legal moves
-- [X] Add castling
-- [X] Add playing as black
-- [X] Add move highlighting
-- [ ] Add dragging functionality
-- [ ] Add checkmate detection
-- [ ] Add multiplayer functionality
-- [ ] Create server and deploy
-- [ ] Add accounts/google auth
-- [ ] Add personalization (maybe behind a mild paywall to fund server)
-
-### SPECIFIC
-- [X] Add check to first double move to make sure pawn doesn't jump over pieces
-- [ ] Change while loop into for loop in loadFen.js
-- [ ] Redo images declaration in Piece.js
-- [ ] Add optional prop to change starting fen
-- [ ] Fix bugs in when legal moves are highlighted
+## Abandoned
+This project has been abandoned and will no longer be updated nor maintained. The codebase was complicated to work with as no effort was put into organization. Also, the drag and drop framework was difficult to work with and caused problems I didn't know were possible. I may revisit the idea in the future, but it will be in a new repository. I am currently developing something somewhat similar on my main account ([battleship solitare](https://github.com/lgrom/battleship-solitare)). It has unit testing, object oriented programming, Jsdoc documentation, and actually works. Check it out if you'd like.
